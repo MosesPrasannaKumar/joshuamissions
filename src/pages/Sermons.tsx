@@ -8,18 +8,18 @@ export const SermonsPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Listen & Watch</span>
-          <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">Sermons</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Sermons</h1>
         </div>
 
-        <div className="flex justify-center gap-4 mb-16">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-16">
           {['All', 'Video', 'Audio', 'Teachings'].map(filter => (
-            <button key={filter} className="px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest border border-primary/10 hover:bg-primary hover:text-warm-white transition-all">
+            <button key={filter} className="px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest border border-primary/10 hover:bg-primary hover:text-warm-white transition-all">
               {filter}
             </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {[...LATEST_SERMONS, ...LATEST_SERMONS].map((sermon, i) => (
             <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-primary/5 group">
               <div className="relative aspect-video">

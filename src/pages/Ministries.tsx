@@ -7,7 +7,7 @@ export const MinistriesPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Our Work</span>
-          <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">Ministries</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Ministries</h1>
           <p className="text-primary/60 max-w-2xl mx-auto text-lg">
             Discover how we serve our community and grow together in faith through our various specialized ministries.
           </p>
@@ -15,7 +15,7 @@ export const MinistriesPage: React.FC = () => {
 
         <div className="space-y-24">
           {MINISTRIES.map((m, i) => (
-            <div key={i} className={`flex flex-col lg:flex-row gap-16 items-center ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+            <div key={i} className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
               <div className="w-full lg:w-1/2">
                 <div className="aspect-[16/10] rounded-3xl overflow-hidden shadow-xl">
                   <img 

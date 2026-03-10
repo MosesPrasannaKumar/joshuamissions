@@ -30,7 +30,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             transition={{ duration: 0.8 }}
           >
             <span className="inline-block text-secondary font-bold uppercase tracking-[0.3em] text-sm mb-6">Welcome to Joshua Missions</span>
-            <h1 className="text-5xl md:text-8xl text-warm-white font-serif leading-tight mb-8">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl text-warm-white font-serif leading-tight mb-8">
               Sharing Faith. <br />
               <span className="italic text-secondary">Serving Communities.</span>
             </h1>
@@ -76,9 +76,9 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-10 -right-10 bg-primary p-10 rounded-2xl shadow-2xl hidden md:block">
-                <p className="text-secondary font-serif text-4xl font-bold mb-2">15+</p>
-                <p className="text-warm-white/60 uppercase tracking-widest text-xs">Years of Service</p>
+              <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 bg-primary p-6 md:p-10 rounded-2xl shadow-2xl">
+                <p className="text-secondary font-serif text-3xl md:text-4xl font-bold mb-2">15+</p>
+                <p className="text-warm-white/60 uppercase tracking-widest text-[10px] md:text-xs">Years of Service</p>
               </div>
             </div>
             <div>
@@ -105,7 +105,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Gather With Us</span>
             <h2 className="text-4xl md:text-5xl font-serif text-primary">Weekly Worship Schedule</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {[
               { title: 'Sunday Worship', time: '9:00 AM - 11:30 AM', desc: 'Main service with worship and word.' },
               { title: 'Weekly Prayer', time: 'Wednesdays, 6:30 PM', desc: 'Mid-week intercession and fellowship.' },
@@ -144,7 +144,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               View All Ministries
             </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {MINISTRIES.slice(0, 3).map((m, i) => (
               <div key={i} className="group relative overflow-hidden rounded-2xl aspect-[4/5]">
                 <img 
@@ -195,8 +195,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                 ))}
               </div>
             </div>
-            <div className="relative">
-              <div className="aspect-square rounded-full overflow-hidden border-8 border-warm-white/10 p-4">
+            <div className="relative mt-12 lg:mt-0">
+              <div className="aspect-square max-w-md mx-auto rounded-full overflow-hidden border-8 border-warm-white/10 p-4">
                 <img 
                   src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200" 
                   alt="Impact" 
@@ -204,10 +204,10 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute top-1/2 -left-10 bg-warm-white text-primary p-8 rounded-2xl shadow-2xl max-w-xs transform -translate-y-1/2">
-                <Quote className="w-8 h-8 text-secondary mb-4" />
-                <p className="font-serif italic text-lg mb-4">"Joshua Missions didn't just give me food; they gave me a family and a reason to hope again."</p>
-                <p className="text-xs uppercase tracking-widest font-bold text-primary/40">— Community Member</p>
+              <div className="absolute top-1/2 -left-4 md:-left-10 bg-warm-white text-primary p-6 md:p-8 rounded-2xl shadow-2xl max-w-[200px] md:max-w-xs transform -translate-y-1/2">
+                <Quote className="w-6 h-6 md:w-8 md:h-8 text-secondary mb-4" />
+                <p className="font-serif italic text-sm md:text-lg mb-4">"Joshua Missions didn't just give me food; they gave me a family and a reason to hope again."</p>
+                <p className="text-[10px] uppercase tracking-widest font-bold text-primary/40">— Community Member</p>
               </div>
             </div>
           </div>
@@ -255,7 +255,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
       {/* CTA Section */}
       <section className="py-24 bg-accent-beige">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="bg-primary rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden">
+          <div className="bg-primary rounded-3xl md:rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full opacity-10">
               <img src="https://images.unsplash.com/photo-1515162305285-0293e4767cc2?auto=format&fit=crop&q=80&w=1200" alt="Pattern" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>

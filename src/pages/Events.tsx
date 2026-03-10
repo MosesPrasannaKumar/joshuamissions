@@ -8,10 +8,10 @@ export const EventsPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Save the Date</span>
-          <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">Upcoming Events</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Upcoming Events</h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
           {UPCOMING_EVENTS.map(event => (
             <div key={event.id} className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary/5 group">
               <div className="aspect-video overflow-hidden">

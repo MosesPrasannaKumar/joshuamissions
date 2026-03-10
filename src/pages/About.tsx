@@ -6,7 +6,7 @@ export const AboutPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Who We Are</span>
-          <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">Our Story & Vision</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Our Story & Vision</h1>
           <div className="w-24 h-1 bg-secondary mx-auto"></div>
         </div>
 
@@ -25,16 +25,16 @@ export const AboutPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
-          <div className="bg-primary p-12 rounded-3xl text-warm-white">
-            <h3 className="text-3xl font-serif mb-6 text-secondary italic">Our Vision</h3>
-            <p className="text-warm-white/70 leading-relaxed text-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-32">
+          <div className="bg-primary p-8 md:p-12 rounded-3xl text-warm-white">
+            <h3 className="text-2xl md:text-3xl font-serif mb-6 text-secondary italic">Our Vision</h3>
+            <p className="text-warm-white/70 leading-relaxed text-base md:text-lg">
               To see a transformed generation walking in the fullness of their divine purpose, impacting society with the love and truth of Jesus Christ.
             </p>
           </div>
-          <div className="bg-accent-beige p-12 rounded-3xl text-primary">
-            <h3 className="text-3xl font-serif mb-6 text-secondary italic">Our Mission</h3>
-            <p className="text-primary/70 leading-relaxed text-lg">
+          <div className="bg-accent-beige p-8 md:p-12 rounded-3xl text-primary">
+            <h3 className="text-2xl md:text-3xl font-serif mb-6 text-secondary italic">Our Mission</h3>
+            <p className="text-primary/70 leading-relaxed text-base md:text-lg">
               To preach the gospel, make disciples, and serve the community through holistic social service programs that address both spiritual and physical needs.
             </p>
           </div>

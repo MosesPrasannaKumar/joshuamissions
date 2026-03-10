@@ -19,10 +19,10 @@ export const GalleryPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Visual Journey</span>
-          <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">Gallery</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Gallery</h1>
         </div>
 
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 md:gap-8 space-y-6 md:space-y-8">
           {images.map((img, i) => (
             <motion.div 
               key={i}

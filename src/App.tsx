@@ -65,7 +65,7 @@ export default function App() {
             <img 
               src="/logo.svg" 
               alt="Joshua Missions Logo" 
-              className="h-24 w-auto transition-all"
+              className="h-16 md:h-24 w-auto transition-all"
             />
           </div>
 
@@ -154,7 +154,7 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-primary text-warm-white pt-20 pb-10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div className="col-span-1 md:col-span-1">
               <div className="flex items-center gap-3 mb-6">
                 <img 

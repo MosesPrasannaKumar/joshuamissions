@@ -7,10 +7,10 @@ export const ContactPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Get in Touch</span>
-          <h1 className="text-5xl md:text-7xl font-serif text-primary mb-8">Contact Us</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Contact Us</h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           <div>
             <h2 className="text-3xl font-serif text-primary mb-8">Send a Prayer Request</h2>
             <form className="space-y-6">
