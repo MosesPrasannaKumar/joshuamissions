@@ -15,7 +15,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="logo.svg" 
+            src="/logo.svg" 
             alt="Worship" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
