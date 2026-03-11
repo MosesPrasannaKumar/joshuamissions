@@ -63,10 +63,18 @@ export default function App() {
             onClick={() => navigate('home')}
           >
             <img 
-              src="/logo.svg" 
+              src="logo.svg" 
               alt="Joshua Missions Logo" 
               className="h-16 md:h-24 w-auto transition-all"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextElementSibling?.classList.remove('hidden');
+              }}
             />
+            <div className="hidden flex flex-col">
+              <span className="text-2xl font-serif font-bold tracking-tighter text-secondary leading-none">JOSHUA</span>
+              <span className="text-xs font-sans tracking-[0.3em] text-warm-white/80 leading-none">MISSIONS</span>
+            </div>
           </div>
 
           {/* Desktop Nav */}
@@ -158,10 +166,18 @@ export default function App() {
             <div className="col-span-1 md:col-span-1">
               <div className="flex items-center gap-3 mb-6">
                 <img 
-                  src="/logo.svg" 
+                  src="logo.svg" 
                   alt="Joshua Missions Logo" 
                   className="h-12 w-auto"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
                 />
+                <div className="hidden flex flex-col">
+                  <span className="text-xl font-serif font-bold tracking-tighter text-secondary leading-none">JOSHUA</span>
+                  <span className="text-[8px] font-sans tracking-[0.3em] text-warm-white/60 leading-none uppercase">Missions</span>
+                </div>
               </div>
               <p className="text-warm-white/60 text-sm leading-relaxed mb-6">
                 Dedicated to spreading the gospel, fostering spiritual growth, and transforming communities through love and service.
