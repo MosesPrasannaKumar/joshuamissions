@@ -75,8 +75,16 @@ export const ContactPage: React.FC = () => {
                   <p className="text-primary/60 leading-relaxed">contact@joshuamissions.org</p>
                 </div>
               </div>
-              <div className="rounded-3xl overflow-hidden h-64 bg-primary/5 border border-primary/10 flex items-center justify-center">
-                <span className="text-primary/20 text-xs font-bold uppercase tracking-widest">Google Map Embed Placeholder</span>
+              <div className="rounded-3xl overflow-hidden h-80 bg-primary/5 border border-primary/10">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.87278959141!2d80.21412667571582!3d13.043768287278274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52670001d169d7%3A0xc89df775bbad3260!2sJoshua%20Missions!5e0!3m2!1sen!2sin!4v1773338211234!5m2!1sen!2sin" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </div>
           </div>
