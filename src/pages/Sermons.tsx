@@ -17,11 +17,11 @@ export const SermonsPage: React.FC = () => {
   useEffect(() => {
     const loadVideos = async () => {
       try {
-        let response = await fetch('/api/youtube/rss-proxy');
+        let response = await fetch('/api/youtube');
         
-        // Fallback to the latest API if RSS proxy fails
+        // Fallback to the latest API if the main endpoint fails
         if (!response.ok) {
-          console.warn('RSS Proxy failed, falling back to latest API');
+          console.warn('YouTube API failed, falling back to latest JSON API');
           response = await fetch('/api/youtube/latest');
           if (!response.ok) throw new Error('All video fetch methods failed');
           
@@ -46,13 +46,12 @@ export const SermonsPage: React.FC = () => {
         for (let i = 0; i < entries.length; i++) {
           const entry = entries[i];
           
-          // Extract yt:videoId - handling potential namespace issues
+          // Extract yt:videoId
           let videoId = "";
           const ytVideoIdTags = entry.getElementsByTagName("yt:videoId");
           if (ytVideoIdTags.length > 0) {
             videoId = ytVideoIdTags[0].textContent || "";
           } else {
-            // Fallback: extract from <id> tag which is usually yt:video:VIDEO_ID
             const idTag = entry.getElementsByTagName("id")[0]?.textContent || "";
             if (idTag.includes("yt:video:")) {
               videoId = idTag.replace("yt:video:", "");

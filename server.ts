@@ -128,7 +128,8 @@ async function startServer() {
   const RSS_CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
 
   // Raw RSS Proxy for DOMParser usage in frontend
-  app.get('/api/youtube/rss-proxy', async (req, res) => {
+  // Aliased to /api/youtube as requested
+  app.get(['/api/youtube', '/api/youtube/rss-proxy'], async (req, res) => {
     const channelId = 'UCX9b9buBiXlcYbAC6LtzjzQ';
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
 
