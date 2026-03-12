@@ -12,16 +12,16 @@ export const AboutPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 items-center">
           <div className="order-2 lg:order-1">
-            <h2 className="text-3xl font-serif text-primary mb-6">History of Joshua Missions</h2>
+            <h2 className="text-3xl font-serif text-primary mb-6">Our Beginning</h2>
             <p className="text-primary/70 leading-relaxed mb-6">
-              Founded in 2010, Joshua Missions began as a small home-based prayer cell with a vision to reach the unreached and serve the marginalized. Led by Pastor Samuel Joshua, the ministry has grown into a multi-faceted trust that impacts thousands of lives annually.
+              Founded on April 2nd, 2025, Joshua Missions Trust was established with a clear and divine mandate: to be a catalyst for spiritual renewal and social transformation. What began as a heartfelt vision to serve the community has quickly blossomed into a dedicated mission focused on reaching the unreached and empowering the marginalized.
             </p>
             <p className="text-primary/70 leading-relaxed">
-              Our journey has been one of faith, marked by countless testimonies of healing, restoration, and community transformation. Today, we stand as a testament to God's faithfulness and the power of a community united in purpose.
+              Though our journey is in its early chapters, it is already marked by a profound sense of purpose and a growing community of believers. We are committed to building a foundation of faith that will serve generations to come, standing as a testament to God's immediate and powerful work in our time.
             </p>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl aspect-video">
-            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" alt="History" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1477673132141-8467d3466a65?auto=format&fit=crop&q=80&w=1200" alt="History" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
         </div>
 

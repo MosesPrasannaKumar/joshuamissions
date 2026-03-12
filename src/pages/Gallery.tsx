@@ -3,15 +3,15 @@ import { motion } from 'motion/react';
 
 export const GalleryPage: React.FC = () => {
   const images = [
-    'https://images.unsplash.com/photo-1438232992991-995b7058bbb3',
-    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622',
     'https://images.unsplash.com/photo-1515162305285-0293e4767cc2',
-    'https://images.unsplash.com/photo-1529070538774-1843cb3265df',
-    'https://images.unsplash.com/photo-1504052434569-70ad5836ab65',
-    'https://images.unsplash.com/photo-1445077100181-a33e9ac94db0',
-    'https://images.unsplash.com/photo-1523240795612-9a054b0db644',
+    'https://images.unsplash.com/photo-1507692049790-de58290a4334',
+    'https://images.unsplash.com/photo-1477673132141-8467d3466a65',
+    'https://images.unsplash.com/photo-1541976844346-f18aeac57b06',
+    'https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa',
     'https://images.unsplash.com/photo-1511632765486-a01980e01a18',
-    'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c'
+    'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c',
+    'https://images.unsplash.com/photo-1504052434569-70ad5836ab65',
+    'https://images.unsplash.com/photo-1548625361-195fe5772df8'
   ];
 
   return (

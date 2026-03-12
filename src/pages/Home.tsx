@@ -15,7 +15,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80&w=1920" 
+            src="https://images.unsplash.com/photo-1515162305285-0293e4767cc2?auto=format&fit=crop&q=80&w=1920" 
             alt="Worship" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -70,20 +70,20 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             <div className="relative">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" 
+                  src="https://images.unsplash.com/photo-1541976844346-f18aeac57b06?auto=format&fit=crop&q=80&w=1200" 
                   alt="Community" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 bg-primary p-6 md:p-10 rounded-2xl shadow-2xl">
-                <p className="text-secondary font-serif text-3xl md:text-4xl font-bold mb-2">15+</p>
-                <p className="text-warm-white/60 uppercase tracking-widest text-[10px] md:text-xs">Years of Service</p>
+                <p className="text-secondary font-serif text-3xl md:text-4xl font-bold mb-2">Est.</p>
+                <p className="text-warm-white/60 uppercase tracking-widest text-[10px] md:text-xs">April 2025</p>
               </div>
             </div>
             <div>
               <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Our Story</span>
-              <h2 className="text-4xl md:text-5xl font-serif text-primary mb-8 leading-tight">A Legacy of Faith and Compassion</h2>
+              <h2 className="text-4xl md:text-5xl font-serif text-primary mb-8 leading-tight">A New Vision of Faith and Compassion</h2>
               <p className="text-primary/70 text-lg leading-relaxed mb-8">
                 Joshua Missions Trust was founded with a singular vision: to be a beacon of hope in a world that needs the light of Christ. What started as a small prayer gathering has grown into a vibrant community dedicated to spiritual excellence and social impact.
               </p>
@@ -148,7 +148,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             {MINISTRIES.slice(0, 3).map((m, i) => (
               <div key={i} className="group relative overflow-hidden rounded-2xl aspect-[4/5]">
                 <img 
-                  src={`https://images.unsplash.com/photo-${i === 0 ? '1445077100181-a33e9ac94db0' : i === 1 ? '1523240795612-9a054b0db644' : '1511632765486-a01980e01a18'}?auto=format&fit=crop&q=80&w=800`} 
+                  src={`https://images.unsplash.com/photo-${i === 0 ? '1507692049790-de58290a4334' : i === 1 ? '1526948128573-703ee1aeb6fa' : '1511632765486-a01980e01a18'}?auto=format&fit=crop&q=80&w=800`} 
                   alt={m.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
@@ -256,8 +256,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
       <section className="py-24 bg-accent-beige">
         <div className="max-w-5xl mx-auto px-6">
           <div className="bg-primary rounded-3xl md:rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full opacity-10">
-              <img src="https://images.unsplash.com/photo-1515162305285-0293e4767cc2?auto=format&fit=crop&q=80&w=1200" alt="Pattern" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <div className="absolute top-0 left-0 w-full h-full opacity-20">
+              <img src="https://images.unsplash.com/photo-1548625361-195fe5772df8?auto=format&fit=crop&q=80&w=1200" alt="Pattern" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="relative z-10">
               <h2 className="text-4xl md:text-6xl font-serif text-warm-white mb-8">Ready to Start Your Journey?</h2>

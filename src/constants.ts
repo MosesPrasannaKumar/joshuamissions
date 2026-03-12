@@ -14,7 +14,7 @@ export const UPCOMING_EVENTS: Event[] = [
     title: 'Monthly Fasting Prayer',
     date: 'March 15, 2026',
     description: 'A dedicated time of seeking God through prayer and fasting.',
-    image: 'https://images.unsplash.com/photo-1515162305285-0293e4767cc2?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&q=80&w=800',
     location: 'Joshua Missions Church Hall'
   },
   {
@@ -22,7 +22,7 @@ export const UPCOMING_EVENTS: Event[] = [
     title: 'Youth Revival Night',
     date: 'March 22, 2026',
     description: 'An evening of powerful worship and life-changing message for the youth.',
-    image: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800',
     location: 'Main Sanctuary'
   }
 ];
@@ -34,7 +34,7 @@ export const LATEST_SERMONS: Sermon[] = [
     speaker: 'Pastor John Doe',
     date: 'March 8, 2026',
     type: 'video',
-    thumbnail: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80&w=800'
+    thumbnail: 'https://images.unsplash.com/photo-1477673132141-8467d3466a65?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: '2',

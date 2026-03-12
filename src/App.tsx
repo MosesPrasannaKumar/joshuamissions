@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Menu, X, MapPin, Phone, Mail, 
-  Instagram, Facebook, Twitter
+  Instagram, Youtube, MessageCircle
 } from 'lucide-react';
 import { Page, NavItem } from './types';
 import { NAV_ITEMS, MINISTRIES } from './constants';
@@ -53,28 +53,24 @@ export default function App() {
     }
   };
 
+  const isHome = currentPage === 'home';
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'glass-nav py-3' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${
+        (scrolled || !isHome) ? 'glass-nav py-3' : 'bg-transparent py-6'
+      }`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div 
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex items-center cursor-pointer group"
             onClick={() => navigate('home')}
           >
             <img 
-              src="logo.svg" 
+              src="/logo.svg" 
               alt="Joshua Missions Logo" 
-              className="h-16 md:h-24 w-auto transition-all"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextElementSibling?.classList.remove('hidden');
-              }}
+              className="h-14 md:h-20 w-auto transition-all duration-300"
             />
-            <div className="hidden flex flex-col">
-              <span className="text-2xl font-serif font-bold tracking-tighter text-secondary leading-none">JOSHUA</span>
-              <span className="text-xs font-sans tracking-[0.3em] text-warm-white/80 leading-none">MISSIONS</span>
-            </div>
           </div>
 
           {/* Desktop Nav */}
@@ -83,18 +79,25 @@ export default function App() {
               <button
                 key={item.page}
                 onClick={() => navigate(item.page)}
-                className={`text-sm font-medium uppercase tracking-widest transition-colors hover:text-secondary ${
+                className={`text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:text-secondary relative group py-2 ${
                   currentPage === item.page 
                     ? 'text-secondary' 
-                    : scrolled ? 'text-primary' : 'text-warm-white'
+                    : (scrolled || !isHome) ? 'text-primary' : 'text-warm-white'
                 }`}
               >
                 {item.label}
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-secondary transform transition-transform duration-300 origin-left ${
+                  currentPage === item.page ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`}></span>
               </button>
             ))}
             <button 
               onClick={() => navigate('donate')}
-              className="bg-secondary text-primary px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-90 transition-all"
+              className={`px-8 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg ${
+                (scrolled || !isHome)
+                  ? 'bg-primary text-warm-white hover:bg-secondary'
+                  : 'bg-secondary text-primary hover:bg-warm-white'
+              }`}
             >
               Support
             </button>
@@ -102,13 +105,13 @@ export default function App() {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="md:hidden"
+            className="md:hidden p-2 rounded-lg transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
-              <X className={scrolled ? 'text-primary' : 'text-warm-white'} />
+              <X className={(scrolled || !isHome) ? 'text-primary' : 'text-warm-white'} />
             ) : (
-              <Menu className={scrolled ? 'text-primary' : 'text-warm-white'} />
+              <Menu className={(scrolled || !isHome) ? 'text-primary' : 'text-warm-white'} />
             )}
           </button>
         </div>
@@ -164,28 +167,24 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div className="col-span-1 md:col-span-1">
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-4 mb-8">
                 <img 
-                  src="logo.svg" 
+                  src="/logo.svg" 
                   alt="Joshua Missions Logo" 
                   className="h-12 w-auto"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                  }}
                 />
-                <div className="hidden flex flex-col">
-                  <span className="text-xl font-serif font-bold tracking-tighter text-secondary leading-none">JOSHUA</span>
-                  <span className="text-[8px] font-sans tracking-[0.3em] text-warm-white/60 leading-none uppercase">Missions</span>
+                <div className="flex flex-col">
+                  <span className="text-xl font-serif font-bold tracking-tighter text-secondary leading-none">JOSHUA <span className="text-warm-white">MISSIONS</span></span>
+                  <span className="text-[8px] font-sans font-bold tracking-[0.4em] text-warm-white/40 leading-none uppercase">Inheriting the Promises</span>
                 </div>
               </div>
               <p className="text-warm-white/60 text-sm leading-relaxed mb-6">
                 Dedicated to spreading the gospel, fostering spiritual growth, and transforming communities through love and service.
               </p>
               <div className="flex gap-4">
-                <Facebook className="w-5 h-5 text-secondary cursor-pointer hover:text-warm-white transition-colors" />
                 <Instagram className="w-5 h-5 text-secondary cursor-pointer hover:text-warm-white transition-colors" />
-                <Twitter className="w-5 h-5 text-secondary cursor-pointer hover:text-warm-white transition-colors" />
+                <Youtube className="w-5 h-5 text-secondary cursor-pointer hover:text-warm-white transition-colors" />
+                <MessageCircle className="w-5 h-5 text-secondary cursor-pointer hover:text-warm-white transition-colors" />
               </div>
             </div>
 
@@ -220,11 +219,11 @@ export default function App() {
               <ul className="space-y-4">
                 <li className="flex gap-3 items-start">
                   <MapPin className="w-5 h-5 text-secondary shrink-0" />
-                  <span className="text-sm text-warm-white/60">123 Mission Road, Faith Valley, City 560001</span>
+                  <span className="text-sm text-warm-white/60">No 2, First Floor, 2nd Avenue, Ahsok Nagar, Chennai 600 083</span>
                 </li>
                 <li className="flex gap-3 items-center">
                   <Phone className="w-5 h-5 text-secondary shrink-0" />
-                  <span className="text-sm text-warm-white/60">+91 98765 43210</span>
+                  <span className="text-sm text-warm-white/60">9710766777</span>
                 </li>
                 <li className="flex gap-3 items-center">
                   <Mail className="w-5 h-5 text-secondary shrink-0" />

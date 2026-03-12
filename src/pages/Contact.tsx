@@ -52,8 +52,8 @@ export const ContactPage: React.FC = () => {
                   <h4 className="font-serif text-xl font-bold text-primary mb-2">Address</h4>
                   <p className="text-primary/60 leading-relaxed">
                     Joshua Missions Church<br />
-                    123 Mission Road, Faith Valley<br />
-                    City, State 560001
+                    No 2, First Floor, 2nd Avenue<br />
+                    Ahsok Nagar, Chennai 600 083
                   </p>
                 </div>
               </div>
@@ -62,8 +62,8 @@ export const ContactPage: React.FC = () => {
                   <Phone className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-xl font-bold text-primary mb-2">Phone</h4>
-                  <p className="text-primary/60 leading-relaxed">+91 98765 43210</p>
+                  <h4 className="font-serif text-xl font-bold text-primary mb-2">Phone & WhatsApp</h4>
+                  <p className="text-primary/60 leading-relaxed">9710766777</p>
                 </div>
               </div>
               <div className="flex gap-6">

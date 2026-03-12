@@ -18,8 +18,8 @@ export const MinistriesPage: React.FC = () => {
             <div key={i} className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
               <div className="w-full lg:w-1/2">
                 <div className="aspect-[16/10] rounded-3xl overflow-hidden shadow-xl">
-                  <img 
-                    src={`https://images.unsplash.com/photo-${i === 0 ? '1445077100181-a33e9ac94db0' : i === 1 ? '1523240795612-9a054b0db644' : i === 2 ? '1511632765486-a01980e01a18' : i === 3 ? '1488521787991-ed7bbaae773c' : '1509099836639-18ba1795216d'}?auto=format&fit=crop&q=80&w=1200`} 
+                    <img 
+                      src={`https://images.unsplash.com/photo-${i === 0 ? '1507692049790-de58290a4334' : i === 1 ? '1526948128573-703ee1aeb6fa' : i === 2 ? '1511632765486-a01980e01a18' : i === 3 ? '1490730141103-6ac27d95654e' : '1541976844346-f18aeac57b06'}?auto=format&fit=crop&q=80&w=1200`} 
                     alt={m.title} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
