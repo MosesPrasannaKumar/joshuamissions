@@ -123,6 +123,93 @@ async function startServer() {
     }
   }
 
+  // Cache for raw RSS XML
+  let rssCache: { data: string, timestamp: number } | null = null;
+  const RSS_CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+
+  // Raw RSS Proxy for DOMParser usage in frontend
+  app.get('/api/youtube/rss-proxy', async (req, res) => {
+    const channelId = 'UCX9b9buBiXlcYbAC6LtzjzQ';
+    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+
+    // Serve from cache if valid
+    if (rssCache && (Date.now() - rssCache.timestamp < RSS_CACHE_DURATION)) {
+      res.set('Content-Type', 'application/xml');
+      return res.send(rssCache.data);
+    }
+
+    const fetchRss = async (url: string) => {
+      // Try direct fetch first with enhanced headers
+      try {
+        const response = await axios.get(url, { 
+          timeout: 7000,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Sec-Ch-Ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+            'Sec-Ch-Ua-Mobile': '?0',
+            'Sec-Ch-Ua-Platform': '"macOS"',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Upgrade-Insecure-Requests': '1'
+          }
+        });
+        return response.data;
+      } catch (error) {
+        // Silent fallback to proxies to avoid cluttering logs if direct fetch is rate-limited
+        
+        // Try Proxy 1: allorigins (reliable for XML)
+        try {
+          const proxyUrl1 = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+          const res1 = await axios.get(proxyUrl1, { timeout: 7000 });
+          if (res1.data && res1.data.contents) return res1.data.contents;
+          throw new Error('Proxy 1 returned empty content');
+        } catch (e1) {
+          // Try Proxy 2: codetabs
+          try {
+            const proxyUrl2 = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`;
+            const res2 = await axios.get(proxyUrl2, { timeout: 7000 });
+            if (res2.data) return res2.data;
+            throw new Error('Proxy 2 returned empty content');
+          } catch (e2) {
+            // Try Proxy 3: rss2json (returns JSON, so we'd need to convert back or handle it, 
+            // but for now let's try one more XML-friendly proxy)
+            try {
+              const proxyUrl3 = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+              const res3 = await axios.get(proxyUrl3, { timeout: 7000 });
+              if (res3.data) return res3.data;
+              throw new Error('Proxy 3 returned empty content');
+            } catch (e3) {
+              throw new Error('All RSS fetch methods failed');
+            }
+          }
+        }
+      }
+    };
+
+    try {
+      const xmlData = await fetchRss(rssUrl);
+      rssCache = { data: xmlData, timestamp: Date.now() };
+      res.set('Content-Type', 'application/xml');
+      res.send(xmlData);
+    } catch (error) {
+      console.error('RSS Proxy Error:', error);
+      
+      // If we have a stale cache, serve it as a last resort
+      if (rssCache) {
+        res.set('Content-Type', 'application/xml');
+        return res.send(rssCache.data);
+      }
+      
+      res.status(500).send('Error fetching RSS');
+    }
+  });
+
   // API Route for YouTube Latest Videos
   app.get('/api/youtube/latest', async (req, res) => {
     const channelId = 'UCX9b9buBiXlcYbAC6LtzjzQ';
