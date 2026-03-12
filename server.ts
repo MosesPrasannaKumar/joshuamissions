@@ -20,7 +20,9 @@ async function startServer() {
     let videos = [];
     try {
       if (apiKey) {
-        const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=2&type=video`;
+        console.log('Fetching from YouTube Data API v3...');
+        // Fetch up to 15 videos to populate the Sermons page
+        const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=15&type=video`;
         const apiResponse = await axios.get(apiUrl, { timeout: 5000 });
         videos = apiResponse.data.items.map((item: any) => ({
           id: item.id.videoId,
@@ -35,6 +37,7 @@ async function startServer() {
       } else {
         // Try Primary RSS
         try {
+          console.log('Fetching from YouTube RSS (Primary)...');
           const rssResponse = await axios.get(rssUrl, { 
             timeout: 5000,
             headers: {
@@ -44,7 +47,8 @@ async function startServer() {
           });
           const result = await parseStringPromise(rssResponse.data);
           const entries = result.feed.entry || [];
-          videos = entries.slice(0, 2).map((entry: any) => {
+          // Increase slice to 15 for the Sermons page
+          videos = entries.slice(0, 15).map((entry: any) => {
             const videoId = entry['yt:videoId'][0];
             return {
               id: videoId,
@@ -60,10 +64,11 @@ async function startServer() {
         } catch (e) {
           // Try Proxy 1: rss2json
           try {
+            console.log('Fetching from YouTube RSS (Proxy 1)...');
             const proxyUrl1 = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
             const res = await axios.get(proxyUrl1, { timeout: 5000 });
             if (res.data?.items?.length > 0) {
-              videos = res.data.items.slice(0, 2).map((item: any) => ({
+              videos = res.data.items.slice(0, 15).map((item: any) => ({
                 id: item.link.split('v=')[1]?.split('&')[0] || '',
                 title: item.title,
                 thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${item.link.split('v=')[1]?.split('&')[0]}/maxresdefault.jpg`,
@@ -75,11 +80,12 @@ async function startServer() {
           } catch (e2) {
             // Try Proxy 2: allorigins
             try {
+              console.log('Fetching from YouTube RSS (Proxy 2)...');
               const proxyUrl2 = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
               const res = await axios.get(proxyUrl2, { timeout: 5000 });
               const result = await parseStringPromise(res.data.contents);
               const entries = result.feed.entry || [];
-              videos = entries.slice(0, 2).map((entry: any) => ({
+              videos = entries.slice(0, 15).map((entry: any) => ({
                 id: entry['yt:videoId'][0],
                 title: entry.title[0],
                 thumbnail: `https://i.ytimg.com/vi/${entry['yt:videoId'][0]}/maxresdefault.jpg`,
@@ -89,11 +95,12 @@ async function startServer() {
               }));
             } catch (e3) {
               // Final Proxy 3: codetabs
+              console.log('Fetching from YouTube RSS (Proxy 3)...');
               const proxyUrl3 = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(rssUrl)}`;
               const res = await axios.get(proxyUrl3, { timeout: 5000 });
               const result = await parseStringPromise(res.data);
               const entries = result.feed.entry || [];
-              videos = entries.slice(0, 2).map((entry: any) => ({
+              videos = entries.slice(0, 15).map((entry: any) => ({
                 id: entry['yt:videoId'][0],
                 title: entry.title[0],
                 thumbnail: `https://i.ytimg.com/vi/${entry['yt:videoId'][0]}/maxresdefault.jpg`,

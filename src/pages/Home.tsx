@@ -24,7 +24,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
     loadVideos();
   }, []);
 
-  const displaySermons = videos.length > 0 ? videos : LATEST_SERMONS;
+  const displaySermons = (videos.length > 0 ? videos : LATEST_SERMONS).slice(0, 2);
 
   return (
     <div>
