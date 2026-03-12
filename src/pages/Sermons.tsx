@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Play, Music, FileText, Youtube, ExternalLink, Loader2 } from 'lucide-react';
+import { fetchLatestVideos, YouTubeVideo } from '../services/youtubeService';
 
 interface SermonVideo {
   id: string;
@@ -17,64 +18,15 @@ export const SermonsPage: React.FC = () => {
   useEffect(() => {
     const loadVideos = async () => {
       try {
-        let response = await fetch('/api/youtube');
-        
-        // Fallback to the latest API if the main endpoint fails
-        if (!response.ok) {
-          console.warn('YouTube API failed, falling back to latest JSON API');
-          response = await fetch('/api/youtube/latest');
-          if (!response.ok) throw new Error('All video fetch methods failed');
-          
-          const data = await response.json();
-          const formattedVideos: SermonVideo[] = data.map((v: any) => ({
-            id: v.id,
-            title: v.title,
-            date: v.date,
-            thumbnail: v.thumbnail,
-            link: `https://www.youtube.com/watch?v=${v.id}`
-          }));
-          setVideos(formattedVideos);
-          return;
-        }
-        
-        const xmlText = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-        const entries = xmlDoc.getElementsByTagName("entry");
-        
-        const fetchedVideos: SermonVideo[] = [];
-        for (let i = 0; i < entries.length; i++) {
-          const entry = entries[i];
-          
-          // Extract yt:videoId
-          let videoId = "";
-          const ytVideoIdTags = entry.getElementsByTagName("yt:videoId");
-          if (ytVideoIdTags.length > 0) {
-            videoId = ytVideoIdTags[0].textContent || "";
-          } else {
-            const idTag = entry.getElementsByTagName("id")[0]?.textContent || "";
-            if (idTag.includes("yt:video:")) {
-              videoId = idTag.replace("yt:video:", "");
-            }
-          }
-
-          const title = entry.getElementsByTagName("title")[0]?.textContent || "";
-          const published = entry.getElementsByTagName("published")[0]?.textContent || "";
-          const link = entry.getElementsByTagName("link")[0]?.getAttribute("href") || "";
-          
-          if (videoId) {
-            fetchedVideos.push({
-              id: videoId,
-              title,
-              date: new Date(published).toLocaleDateString('en-US', {
-                month: 'long', day: 'numeric', year: 'numeric'
-              }),
-              thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
-              link
-            });
-          }
-        }
-        setVideos(fetchedVideos);
+        const fetchedVideos = await fetchLatestVideos();
+        const formattedVideos: SermonVideo[] = fetchedVideos.map(v => ({
+          id: v.id,
+          title: v.title,
+          date: v.date,
+          thumbnail: v.thumbnail,
+          link: `https://www.youtube.com/watch?v=${v.id}`
+        }));
+        setVideos(formattedVideos);
       } catch (error) {
         console.error("Error loading videos:", error);
       } finally {

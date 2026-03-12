@@ -24,7 +24,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
     loadVideos();
   }, []);
 
-  const displaySermons = (videos.length > 0 ? videos : LATEST_SERMONS).slice(0, 2);
+  const displaySermons = videos.length > 0 ? videos.slice(0, 3) : LATEST_SERMONS.slice(0, 3);
 
   return (
     <div>
@@ -234,11 +234,20 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
       {/* Sermons Preview */}
       <section className="py-24 bg-warm-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Spiritual Nourishment</span>
-            <h2 className="text-4xl md:text-5xl font-serif text-primary">Latest Sermons</h2>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div className="max-w-2xl">
+              <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Spiritual Nourishment</span>
+              <h2 className="text-4xl md:text-5xl font-serif text-primary">Latest Sermons</h2>
+            </div>
+            <button 
+              onClick={() => navigate('sermons')}
+              className="bg-primary text-warm-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-secondary transition-colors"
+            >
+              View All Sermons
+            </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {displaySermons.map((sermon) => (
               <div 
                 key={sermon.id} 
@@ -253,24 +262,19 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors flex items-center justify-center">
-                    <div className="w-16 h-16 bg-warm-white rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform">
-                      {sermon.type === 'video' ? <Play className="w-6 h-6 text-primary fill-primary" /> : <Music className="w-6 h-6 text-primary" />}
+                    <div className="w-12 h-12 bg-warm-white rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform">
+                      {sermon.type === 'video' ? <Play className="w-5 h-5 text-primary fill-primary" /> : <Music className="w-5 h-5 text-primary" />}
                     </div>
                   </div>
                   {videos.length > 0 && (
                     <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
-                      <Youtube className="w-3 h-3" /> Live from YouTube
+                      <Youtube className="w-3 h-3" /> Live
                     </div>
                   )}
                 </div>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <span className="text-secondary text-xs font-bold uppercase tracking-widest mb-2 block">{sermon.date} • {sermon.speaker}</span>
-                    <h3 className="text-2xl font-serif text-primary group-hover:text-secondary transition-colors line-clamp-2">{sermon.title}</h3>
-                  </div>
-                  <button className="p-2 rounded-full border border-primary/10 hover:bg-primary/5 transition-colors">
-                    <FileText className="w-5 h-5 text-primary/40" />
-                  </button>
+                <div>
+                  <span className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-2 block">{sermon.date}</span>
+                  <h3 className="text-xl font-serif text-primary group-hover:text-secondary transition-colors line-clamp-2 leading-tight">{sermon.title}</h3>
                 </div>
               </div>
             ))}
