@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Clock, Quote, Play, Music, FileText, ChevronRight } from 'lucide-react';
+import { ArrowRight, Clock, Quote, Play, Music, FileText, ChevronRight, Youtube } from 'lucide-react';
 import { Page } from '../types';
 import { MINISTRIES, UPCOMING_EVENTS, LATEST_SERMONS } from '../constants';
+import { fetchLatestVideos, YouTubeVideo } from '../services/youtubeService';
 
 interface HomePageProps {
   navigate: (page: Page) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
+  const [videos, setVideos] = useState<YouTubeVideo[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadVideos = async () => {
+      const latest = await fetchLatestVideos();
+      if (latest.length > 0) {
+        setVideos(latest);
+      }
+      setLoading(false);
+    };
+    loadVideos();
+  }, []);
+
+  const displaySermons = videos.length > 0 ? videos : LATEST_SERMONS;
+
   return (
     <div>
       {/* Hero Section */}
@@ -222,8 +239,12 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             <h2 className="text-4xl md:text-5xl font-serif text-primary">Latest Sermons</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {LATEST_SERMONS.map((sermon) => (
-              <div key={sermon.id} className="group cursor-pointer">
+            {displaySermons.map((sermon) => (
+              <div 
+                key={sermon.id} 
+                className="group cursor-pointer"
+                onClick={() => sermon.type === 'video' && window.open(`https://www.youtube.com/watch?v=${sermon.id}`, '_blank')}
+              >
                 <div className="relative aspect-video rounded-2xl overflow-hidden mb-6">
                   <img 
                     src={sermon.thumbnail} 
@@ -236,11 +257,16 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                       {sermon.type === 'video' ? <Play className="w-6 h-6 text-primary fill-primary" /> : <Music className="w-6 h-6 text-primary" />}
                     </div>
                   </div>
+                  {videos.length > 0 && (
+                    <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                      <Youtube className="w-3 h-3" /> Live from YouTube
+                    </div>
+                  )}
                 </div>
                 <div className="flex justify-between items-start">
                   <div>
                     <span className="text-secondary text-xs font-bold uppercase tracking-widest mb-2 block">{sermon.date} • {sermon.speaker}</span>
-                    <h3 className="text-2xl font-serif text-primary group-hover:text-secondary transition-colors">{sermon.title}</h3>
+                    <h3 className="text-2xl font-serif text-primary group-hover:text-secondary transition-colors line-clamp-2">{sermon.title}</h3>
                   </div>
                   <button className="p-2 rounded-full border border-primary/10 hover:bg-primary/5 transition-colors">
                     <FileText className="w-5 h-5 text-primary/40" />

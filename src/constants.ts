@@ -29,20 +29,20 @@ export const UPCOMING_EVENTS: Event[] = [
 
 export const LATEST_SERMONS: Sermon[] = [
   {
-    id: '1',
-    title: 'The Power of Persistent Prayer',
-    speaker: 'Pastor John Doe',
+    id: 'vABiCy61iY8',
+    title: 'The Power of Prayer',
+    speaker: 'Rev. S. Joshua Vasan',
     date: 'March 8, 2026',
     type: 'video',
-    thumbnail: 'https://images.unsplash.com/photo-1477673132141-8467d3466a65?auto=format&fit=crop&q=80&w=800'
+    thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/maxresdefault.jpg'
   },
   {
-    id: '2',
-    title: 'Walking in Divine Purpose',
-    speaker: 'Pastor Jane Smith',
+    id: 'LeKskNVb9XU',
+    title: 'Walking in Faith',
+    speaker: 'Rev. S. Joshua Vasan',
     date: 'March 1, 2026',
-    type: 'audio',
-    thumbnail: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&q=80&w=800'
+    type: 'video',
+    thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/maxresdefault.jpg'
   }
 ];
 
