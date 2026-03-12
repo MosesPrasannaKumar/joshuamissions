@@ -130,6 +130,9 @@ async function startServer() {
   // Raw RSS Proxy for DOMParser usage in frontend
   // Aliased to /api/youtube as requested
   app.get(['/api/youtube', '/api/youtube/rss-proxy'], async (req, res) => {
+    // Add CORS headers for frontend access
+    res.set('Access-Control-Allow-Origin', '*');
+    
     const channelId = 'UCX9b9buBiXlcYbAC6LtzjzQ';
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
 
