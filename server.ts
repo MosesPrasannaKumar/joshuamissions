@@ -46,15 +46,16 @@ async function startServer() {
             }
           });
           const result = await parseStringPromise(rssResponse.data);
-          const entries = result.feed.entry || [];
+          const entries = result?.feed?.entry || [];
           // Increase slice to 15 for the Sermons page
           videos = entries.slice(0, 15).map((entry: any) => {
-            const videoId = entry['yt:videoId'][0];
+            const videoId = entry['yt:videoId']?.[0] || 
+                          (entry.id?.[0]?.includes('yt:video:') ? entry.id[0].replace('yt:video:', '') : '');
             return {
               id: videoId,
-              title: entry.title[0],
+              title: entry.title?.[0] || 'Sermon Video',
               thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
-              date: new Date(entry.published[0]).toLocaleDateString('en-US', {
+              date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', {
                 month: 'long', day: 'numeric', year: 'numeric'
               }),
               speaker: 'Rev. S. Joshua Vasan',
@@ -84,30 +85,38 @@ async function startServer() {
               const proxyUrl2 = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
               const res = await axios.get(proxyUrl2, { timeout: 10000 });
               const result = await parseStringPromise(res.data.contents);
-              const entries = result.feed.entry || [];
-              videos = entries.slice(0, 15).map((entry: any) => ({
-                id: entry['yt:videoId'][0],
-                title: entry.title[0],
-                thumbnail: `https://i.ytimg.com/vi/${entry['yt:videoId'][0]}/maxresdefault.jpg`,
-                date: new Date(entry.published[0]).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-                speaker: 'Rev. S. Joshua Vasan',
-                type: 'video'
-              }));
+              const entries = result?.feed?.entry || [];
+              videos = entries.slice(0, 15).map((entry: any) => {
+                const videoId = entry['yt:videoId']?.[0] || 
+                              (entry.id?.[0]?.includes('yt:video:') ? entry.id[0].replace('yt:video:', '') : '');
+                return {
+                  id: videoId,
+                  title: entry.title?.[0] || 'Sermon Video',
+                  thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+                  date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                  speaker: 'Rev. S. Joshua Vasan',
+                  type: 'video'
+                };
+              });
             } catch (e3) {
               // Final Proxy 3: codetabs
               console.log('Fetching from YouTube RSS (Proxy 3)...');
               const proxyUrl3 = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(rssUrl)}`;
               const res = await axios.get(proxyUrl3, { timeout: 10000 });
               const result = await parseStringPromise(res.data);
-              const entries = result.feed.entry || [];
-              videos = entries.slice(0, 15).map((entry: any) => ({
-                id: entry['yt:videoId'][0],
-                title: entry.title[0],
-                thumbnail: `https://i.ytimg.com/vi/${entry['yt:videoId'][0]}/maxresdefault.jpg`,
-                date: new Date(entry.published[0]).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-                speaker: 'Rev. S. Joshua Vasan',
-                type: 'video'
-              }));
+              const entries = result?.feed?.entry || [];
+              videos = entries.slice(0, 15).map((entry: any) => {
+                const videoId = entry['yt:videoId']?.[0] || 
+                              (entry.id?.[0]?.includes('yt:video:') ? entry.id[0].replace('yt:video:', '') : '');
+                return {
+                  id: videoId,
+                  title: entry.title?.[0] || 'Sermon Video',
+                  thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+                  date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                  speaker: 'Rev. S. Joshua Vasan',
+                  type: 'video'
+                };
+              });
             }
           }
         }

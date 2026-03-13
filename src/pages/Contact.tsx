@@ -63,7 +63,14 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-serif text-xl font-bold text-primary mb-2">Phone & WhatsApp</h4>
-                  <p className="text-primary/60 leading-relaxed">9710766777</p>
+                  <a 
+                    href="https://wa.me/919710766777" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary/60 leading-relaxed hover:text-secondary transition-colors"
+                  >
+                    +91 97107 66777
+                  </a>
                 </div>
               </div>
               <div className="flex gap-6">
