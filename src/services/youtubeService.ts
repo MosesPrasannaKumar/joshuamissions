@@ -133,22 +133,31 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
   };
 
   try {
-    // 1. Try the primary RSS proxy (Cloudflare Function)
+    // 1. Try the JSON API first (Server-side parsed, more reliable)
+    try {
+      const jsonResponse = await fetch('/api/youtube/latest');
+      if (jsonResponse.ok) {
+        const data = await jsonResponse.json();
+        if (data && data.length > 0) {
+          // Ensure unique IDs
+          const uniqueMap = new Map(data.map((v: YouTubeVideo) => [v.id, v]));
+          return Array.from(uniqueMap.values()) as YouTubeVideo[];
+        }
+      }
+    } catch (e) {
+      console.warn("JSON API failed, falling back to RSS");
+    }
+
+    // 2. Try the primary RSS proxy
     try {
       const response = await fetch('/api/youtube');
       if (response.ok) {
         const xmlText = await response.text();
         const videos = parseXml(xmlText);
-        if (videos.length > 0) return videos;
-      }
-    } catch (e) {}
-
-    // 2. Try the JSON API fallback (Server-side)
-    try {
-      const jsonResponse = await fetch('/api/youtube/latest');
-      if (jsonResponse.ok) {
-        const data = await jsonResponse.json();
-        if (data && data.length > 0) return data;
+        if (videos.length > 0) {
+          const uniqueMap = new Map(videos.map((v: YouTubeVideo) => [v.id, v]));
+          return Array.from(uniqueMap.values()) as YouTubeVideo[];
+        }
       }
     } catch (e) {}
 
@@ -160,12 +169,15 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
         const data = await response.json();
         if (data.contents) {
           const videos = parseXml(data.contents);
-          if (videos.length > 0) return videos;
+          if (videos.length > 0) {
+            const uniqueMap = new Map(videos.map((v: YouTubeVideo) => [v.id, v]));
+            return Array.from(uniqueMap.values()) as YouTubeVideo[];
+          }
         }
       }
     } catch (e) {}
     
-    // 4. Ultimate Fallback: Return static videos so the page is never empty
+    // 4. Ultimate Fallback
     console.warn("All YouTube fetch methods failed, using static fallback.");
     return STATIC_FALLBACK_VIDEOS;
   } catch (error) {

@@ -123,7 +123,14 @@ async function startServer() {
       }
       
       if (videos.length > 0) {
-        videoCache = { data: videos, timestamp: Date.now() };
+        // Ensure unique IDs before caching
+        const uniqueMap = new Map();
+        videos.forEach(v => {
+          if (v.id && !uniqueMap.has(v.id)) {
+            uniqueMap.set(v.id, v);
+          }
+        });
+        videoCache = { data: Array.from(uniqueMap.values()), timestamp: Date.now() };
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
@@ -282,7 +289,7 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    app.get('*', (req, res) => {
+    app.get('*all', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
