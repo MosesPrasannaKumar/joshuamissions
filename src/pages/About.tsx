@@ -3,7 +3,7 @@ import React from 'react';
 export const AboutPage: React.FC = () => {
   return (
     <div className="pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1440px] mx-auto px-4">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Who We Are</span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Our Story & Vision</h1>

@@ -4,7 +4,7 @@ import { MapPin, Phone, Mail } from 'lucide-react';
 export const ContactPage: React.FC = () => {
   return (
     <div className="pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1440px] mx-auto px-4">
         <div className="text-center mb-20">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Get in Touch</span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-8">Contact Us</h1>
@@ -79,7 +79,7 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-serif text-xl font-bold text-primary mb-2">Email</h4>
-                  <p className="text-primary/60 leading-relaxed">contact@joshuamissions.org</p>
+                  <p className="text-primary/60 leading-relaxed">joshuamissionschurch@gmail.com</p>
                 </div>
               </div>
               <div className="rounded-3xl overflow-hidden h-80 bg-primary/5 border border-primary/10">

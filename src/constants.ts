@@ -1,31 +1,13 @@
 import { Ministry, Event, Sermon, Page } from './types';
 
 export const MINISTRIES: Ministry[] = [
-  { title: 'Prayer Ministry', description: 'Dedicated intercession and spiritual warfare for our community.', icon: 'Heart' },
-  { title: 'Youth Ministry', description: 'Empowering the next generation to lead with faith and purpose.', icon: 'Users' },
-  { title: 'Women Fellowship', description: 'A supportive community for women to grow in grace and wisdom.', icon: 'Sparkles' },
-  { title: 'Children Ministry', description: 'Nurturing young hearts with biblical foundations and love.', icon: 'BookOpen' },
-  { title: 'Community Outreach', description: 'Extending the hands of Christ through social service and aid.', icon: 'HandHeart' },
+  { title: 'Prayer Ministry', description: 'Dedicated to intercession, spiritual warfare, and building a deep connection with God through prayer.', icon: 'Heart' },
+  { title: 'Youth Ministry', description: 'Empowering the next generation to lead with faith, purpose, and biblical wisdom.', icon: 'Users' },
+  { title: 'Compassion & Outreach', description: 'Serving our community through medical camps, feeding the poor, and supporting orphanages with the love of Christ.', icon: 'HandHeart' },
+  { title: 'Children Ministry', description: 'Nurturing young hearts with biblical foundations, love, and creative learning in a safe environment.', icon: 'BookOpen' },
 ];
 
-export const UPCOMING_EVENTS: Event[] = [
-  {
-    id: '1',
-    title: 'Monthly Fasting Prayer',
-    date: 'March 15, 2026',
-    description: 'A dedicated time of seeking God through prayer and fasting.',
-    image: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&q=80&w=800',
-    location: 'Joshua Missions Church Hall'
-  },
-  {
-    id: '2',
-    title: 'Youth Revival Night',
-    date: 'March 22, 2026',
-    description: 'An evening of powerful worship and life-changing message for the youth.',
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800',
-    location: 'Main Sanctuary'
-  }
-];
+export const UPCOMING_EVENTS: Event[] = [];
 
 export const LATEST_SERMONS: Sermon[] = [
   {

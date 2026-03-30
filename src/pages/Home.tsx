@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Clock, Quote, Play, Music, FileText, ChevronRight, Youtube } from 'lucide-react';
+import { ArrowRight, Clock, Quote, Play, Music, FileText, ChevronRight, Youtube, Church, HandHeart, Heart, Sparkles, Users } from 'lucide-react';
 import { Page } from '../types';
 import { MINISTRIES, UPCOMING_EVENTS, LATEST_SERMONS } from '../constants';
 import { fetchLatestVideos, YouTubeVideo } from '../services/youtubeService';
@@ -40,49 +40,45 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
           <div className="absolute inset-0 hero-gradient"></div>
         </div>
         
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="flex flex-col items-center text-center"
           >
             <span className="inline-block text-secondary font-bold uppercase tracking-[0.3em] text-sm mb-6">Welcome to Joshua Missions</span>
-            <h1 className="text-4xl sm:text-6xl md:text-8xl text-warm-white font-serif leading-tight mb-8">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl text-warm-white font-serif leading-tight mb-8 text-center w-full">
               Sharing Faith. <br />
               <span className="italic text-secondary">Serving Communities.</span>
             </h1>
-            <p className="text-lg md:text-xl text-warm-white/80 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+            <p className="text-lg md:text-xl text-warm-white/80 max-w-2xl mx-auto mb-12 font-light leading-relaxed text-center">
               Joshua Missions Church is dedicated to prayer, spiritual growth, and community transformation through the love of Christ.
             </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
               <button 
                 onClick={() => navigate('contact')}
-                className="w-full md:w-auto bg-secondary text-primary px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform"
+                className="w-full md:w-auto bg-secondary text-primary px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform cursor-pointer"
               >
                 Join Worship
               </button>
+              
+              <div className="hidden md:block w-px h-10 bg-gradient-to-b from-secondary/50 to-transparent self-center"></div>
+              
               <button 
-                onClick={() => navigate('events')}
-                className="w-full md:w-auto border border-warm-white/30 text-warm-white px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-warm-white/10 transition-all"
+                onClick={() => navigate('sermons')}
+                className="w-full md:w-auto border border-warm-white/30 text-warm-white px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-warm-white/10 transition-all cursor-pointer"
               >
-                View Events
+                View Sermons
               </button>
             </div>
           </motion.div>
         </div>
-
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-warm-white/50"
-        >
-          <div className="w-px h-12 bg-gradient-to-b from-secondary to-transparent mx-auto"></div>
-        </motion.div>
       </section>
 
       {/* About Preview */}
       <section className="py-24 bg-warm-white">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="relative">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
@@ -98,7 +94,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                 <p className="text-warm-white/60 uppercase tracking-widest text-[10px] md:text-xs">April 2025</p>
               </div>
             </div>
-            <div>
+            <div className="text-center lg:text-left">
               <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Our Story</span>
               <h2 className="text-4xl md:text-5xl font-serif text-primary mb-8 leading-tight">A New Vision of Faith and Compassion</h2>
               <p className="text-primary/70 text-lg leading-relaxed mb-8">
@@ -106,7 +102,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               </p>
               <button 
                 onClick={() => navigate('about')}
-                className="group flex items-center gap-3 text-primary font-bold uppercase tracking-widest text-sm hover:text-secondary transition-colors"
+                className="group flex items-center gap-3 text-primary font-bold uppercase tracking-widest text-sm hover:text-secondary transition-colors mx-auto lg:mx-0"
               >
                 Learn More About Us <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
               </button>
@@ -117,25 +113,27 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
       {/* Weekly Worship Schedule */}
       <section className="py-24 bg-accent-beige">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-4">
           <div className="text-center mb-16">
             <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Gather With Us</span>
             <h2 className="text-4xl md:text-5xl font-serif text-primary">Weekly Worship Schedule</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
-              { title: 'Sunday Worship', time: '9:00 AM - 11:30 AM', desc: 'Main service with worship and word.' },
-              { title: 'Weekly Prayer', time: 'Wednesdays, 6:30 PM', desc: 'Mid-week intercession and fellowship.' },
-              { title: 'Bible Study', time: 'Fridays, 7:00 PM', desc: 'Deep diving into the scriptures together.' },
-              { title: 'Fasting Prayer', time: '1st Saturday, 10:00 AM', desc: 'A day of seeking God with fasting.' },
+              { title: 'Sunday Worship', time: '5:00 AM, 7:00 AM, 9:00 AM', desc: 'Main service with worship and word.', icon: Church },
+              { title: 'Daily Prayer', time: 'Mon - Sat 5:00 AM', desc: 'Early Morning Prayer & Praise.', icon: HandHeart },
+              { title: 'Daily Worship', time: 'Mon to Fri 7:00 PM', desc: 'Evening Praise & Worship.', icon: Music },
+              { title: 'Mizpah Fasting Prayer', time: 'Friday, 10:00 AM', desc: 'A day of seeking God with fasting.', icon: Heart },
+              { title: 'Promise Service', time: '1st of Every Month 5:00 AM', desc: 'Promise of God with Communion.', icon: Sparkles },
+              { title: 'Youth Meeting', time: '2nd Sunday 5:30 PM', desc: 'Leading the Generations into God.', icon: Users },
             ].map((item, i) => (
               <motion.div 
                 key={i}
                 whileHover={{ y: -10 }}
-                className="bg-warm-white p-8 rounded-2xl shadow-sm border border-primary/5 text-center"
+                className="bg-warm-white p-8 rounded-2xl shadow-sm border border-primary/5 text-center h-full flex flex-col justify-center"
               >
                 <div className="w-12 h-12 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Clock className="w-6 h-6 text-secondary" />
+                  <item.icon className="w-6 h-6 text-secondary" />
                 </div>
                 <h3 className="font-serif text-xl font-bold mb-3 text-primary">{item.title}</h3>
                 <p className="text-secondary font-bold text-sm mb-4">{item.time}</p>
@@ -148,8 +146,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
       {/* Ministries Preview */}
       <section className="py-24 bg-warm-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="max-w-[1440px] mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6 text-center md:text-left">
             <div className="max-w-2xl">
               <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Our Ministries</span>
               <h2 className="text-4xl md:text-5xl font-serif text-primary">Engaging Every Generation</h2>
@@ -165,20 +163,24 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             {MINISTRIES.slice(0, 3).map((m, i) => (
               <div key={i} className="group relative overflow-hidden rounded-2xl aspect-[4/5]">
                 <img 
-                  src={`https://images.unsplash.com/photo-${i === 0 ? '1507692049790-de58290a4334' : i === 1 ? '1526948128573-703ee1aeb6fa' : '1511632765486-a01980e01a18'}?auto=format&fit=crop&q=80&w=800`} 
+                  src={`${i === 0 ? 'https://images.unsplash.com/photo-1507692049790-de58290a4334' : i === 1 ? 'https://images.unsplash.com/photo-1523240795612-9a054b0db644' : 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c'}?auto=format&fit=crop&q=80&w=800`} 
                   alt={m.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-8">
-                  <h3 className="text-2xl font-serif text-warm-white mb-2">{m.title}</h3>
-                  <p className="text-warm-white/70 text-sm mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {m.description}
-                  </p>
-                  <button className="text-secondary font-bold uppercase tracking-widest text-xs flex items-center gap-2">
-                    Learn More <ChevronRight className="w-3 h-3" />
-                  </button>
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                  <div className="flex flex-col">
+                    <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
+                      <h3 className="text-2xl font-serif text-warm-white mb-1">{m.title}</h3>
+                      <p className="text-warm-white/70 text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 max-h-0 group-hover:max-h-32 group-hover:mb-4 overflow-hidden">
+                        {m.description}
+                      </p>
+                    </div>
+                    <button className="text-secondary font-bold uppercase tracking-widest text-xs flex items-center gap-2">
+                      Learn More <ChevronRight className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -189,12 +191,12 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
       {/* Social Impact / Storytelling */}
       <section className="py-24 bg-primary text-warm-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/5 -skew-x-12 transform translate-x-1/2"></div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-[1440px] mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
+            <div className="text-center lg:text-left">
               <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Social Impact</span>
               <h2 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">Beyond the Walls: <br /><span className="italic text-secondary">Our Mission in Action</span></h2>
-              <div className="space-y-8">
+              <div className="space-y-8 text-left">
                 {[
                   { title: 'Charity & Aid', desc: 'Providing essential resources to families in need across the region.' },
                   { title: 'Food Support', desc: 'Weekly community kitchen serving nutritious meals to the homeless.' },
@@ -233,8 +235,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
       {/* Sermons Preview */}
       <section className="py-24 bg-warm-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="max-w-[1440px] mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6 text-center md:text-left">
             <div className="max-w-2xl">
               <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Spiritual Nourishment</span>
               <h2 className="text-4xl md:text-5xl font-serif text-primary">Latest Sermons</h2>
@@ -284,7 +286,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
       {/* CTA Section */}
       <section className="py-24 bg-accent-beige">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4">
           <div className="bg-primary rounded-3xl md:rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full opacity-20">
               <img src="https://images.unsplash.com/photo-1548625361-195fe5772df8?auto=format&fit=crop&q=80&w=1200" alt="Pattern" className="w-full h-full object-cover" referrerPolicy="no-referrer" />

@@ -50,7 +50,7 @@ export const SermonsPage: React.FC = () => {
 
   return (
     <div className="pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1440px] mx-auto px-4">
         <div className="text-center mb-16">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Joshua Missions Church</span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-4">Sermons</h1>

@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Menu, X, MapPin, Phone, Mail, 
-  Instagram, Youtube
+  Instagram, Youtube, ChevronRight
 } from 'lucide-react';
 import { Page, NavItem } from './types';
 import { NAV_ITEMS, MINISTRIES } from './constants';
@@ -32,6 +32,17 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   const navigate = (page: Page) => {
     setCurrentPage(page);
@@ -61,7 +72,7 @@ export default function App() {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${
         (scrolled || !isHome) ? 'glass-nav py-3' : 'bg-transparent py-6'
       }`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <div className="max-w-[1440px] mx-auto px-4 flex justify-between items-center">
           <div 
             className="flex items-center cursor-pointer group"
             onClick={() => navigate('home')}
@@ -116,36 +127,78 @@ export default function App() {
           </button>
         </div>
 
-        {/* Mobile Nav Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 w-full bg-warm-white shadow-2xl md:hidden border-t border-primary/5"
-            >
-              <div className="flex flex-col p-6 gap-4">
-                {NAV_ITEMS.map((item) => (
-                  <button
-                    key={item.page}
-                    onClick={() => navigate(item.page)}
-                    className={`text-left text-lg font-serif font-medium ${currentPage === item.page ? 'text-secondary' : 'text-primary'}`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-                <button 
-                  onClick={() => navigate('donate')}
-                  className="bg-primary text-warm-white py-3 rounded-lg font-bold uppercase tracking-widest mt-2"
-                >
-                  Support the Mission
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
+
+      {/* Mobile Nav Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[9999] bg-[#FDFBF7] md:hidden flex flex-col"
+          >
+            {/* Mobile Menu Header */}
+            <div className="flex justify-between items-center px-6 py-6 border-b border-primary/5">
+              <div className="flex items-center gap-3">
+                <img 
+                  src="/logo.svg" 
+                  alt="Joshua Missions Logo" 
+                  className="h-12 w-auto"
+                />
+                <div className="flex flex-col">
+                  <span className="text-lg font-serif font-bold tracking-tighter text-primary leading-none">JOSHUA <span className="text-secondary">MISSIONS</span></span>
+                </div>
+              </div>
+              <button 
+                className="p-2 rounded-full bg-primary/5 text-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Mobile Menu Links */}
+            <div className="flex-grow overflow-y-auto px-8 py-10 flex flex-col gap-6">
+              {NAV_ITEMS.map((item, index) => (
+                <motion.button
+                  key={item.page}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  onClick={() => navigate(item.page)}
+                  className="group flex items-center justify-between text-left"
+                >
+                  <span className={`text-xl font-serif font-bold transition-colors ${
+                    currentPage === item.page ? 'text-secondary' : 'text-primary'
+                  }`}>
+                    {item.label}
+                  </span>
+                  <ChevronRight className={`w-5 h-5 transition-transform group-hover:translate-x-1 ${
+                    currentPage === item.page ? 'text-secondary' : 'text-primary/20'
+                  }`} />
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Mobile Menu Footer */}
+            <div className="p-8 border-t border-primary/5 bg-accent-beige/30">
+              <button 
+                onClick={() => navigate('donate')}
+                className="w-full bg-primary text-warm-white py-4 rounded-2xl font-bold uppercase tracking-widest shadow-lg shadow-primary/20 active:scale-[0.98] transition-transform"
+              >
+                Support the Mission
+              </button>
+              <div className="mt-8 flex justify-center gap-6">
+                <a href="#" className="text-primary/40 hover:text-secondary transition-colors"><Instagram className="w-5 h-5" /></a>
+                <a href="#" className="text-primary/40 hover:text-secondary transition-colors"><Youtube className="w-5 h-5" /></a>
+                <a href="#" className="text-primary/40 hover:text-secondary transition-colors"><Mail className="w-5 h-5" /></a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main Content */}
       <main className="flex-grow">
@@ -164,9 +217,9 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-primary text-warm-white pt-20 pb-10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-1 md:col-span-1">
+        <div className="max-w-[1440px] mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-center sm:text-left">
+            <div className="col-span-1 md:col-span-1 flex flex-col items-center sm:items-start">
               <div className="flex items-center gap-4 mb-8">
                 <img 
                   src="/logo.svg" 
@@ -181,7 +234,7 @@ export default function App() {
               <p className="text-warm-white/60 text-sm leading-relaxed mb-6">
                 Dedicated to spreading the gospel, fostering spiritual growth, and transforming communities through love and service.
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center sm:justify-start">
                 <a 
                   href="https://www.instagram.com/joshuamissionschurch?igsh=MW54bjdlbHR4MGlmbw==" 
                   target="_blank" 
@@ -215,7 +268,7 @@ export default function App() {
               </div>
             </div>
 
-            <div>
+            <div className="flex flex-col items-center sm:items-start">
               <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Quick Links</h4>
               <ul className="space-y-3">
                 {NAV_ITEMS.slice(0, 4).map(item => (
@@ -228,7 +281,7 @@ export default function App() {
               </ul>
             </div>
 
-            <div>
+            <div className="flex flex-col items-center sm:items-start">
               <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Ministries</h4>
               <ul className="space-y-3">
                 {MINISTRIES.map(m => (
@@ -241,9 +294,9 @@ export default function App() {
               </ul>
             </div>
 
-            <div>
+            <div className="flex flex-col items-center sm:items-start">
               <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Contact Us</h4>
-              <ul className="space-y-4">
+              <ul className="space-y-4 text-left">
                 <li className="flex gap-3 items-start">
                   <MapPin className="w-5 h-5 text-secondary shrink-0" />
                   <span className="text-sm text-warm-white/60">No 2, First Floor, 2nd Avenue, Ahsok Nagar, Chennai 600 083</span>
@@ -261,7 +314,7 @@ export default function App() {
                 </li>
                 <li className="flex gap-3 items-center">
                   <Mail className="w-5 h-5 text-secondary shrink-0" />
-                  <span className="text-sm text-warm-white/60">contact@joshuamissions.org</span>
+                  <span className="text-sm text-warm-white/60">joshuamissionschurch@gmail.com</span>
                 </li>
               </ul>
             </div>
@@ -273,7 +326,7 @@ export default function App() {
               <p className="text-[10px] uppercase tracking-widest text-warm-white/40">– Matthew 5:16</p>
             </div>
             <p className="text-xs text-warm-white/40">
-              © 2026 Joshua Missions Trust. All rights reserved.
+              © 2025 Joshua Missions Trust. All rights reserved.
             </p>
           </div>
         </div>
