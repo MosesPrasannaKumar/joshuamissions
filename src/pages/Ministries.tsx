@@ -19,7 +19,7 @@ export const MinistriesPage: React.FC = () => {
               <div className="w-full lg:w-1/2">
                 <div className="aspect-[16/10] rounded-3xl overflow-hidden shadow-xl">
                     <img 
-                      src={`${i === 0 ? 'https://images.unsplash.com/photo-1507692049790-de58290a4334' : i === 1 ? 'https://images.unsplash.com/photo-1523240795612-9a054b0db644' : i === 2 ? 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c' : 'https://images.unsplash.com/photo-1490730141103-6ac27d95654e'}?auto=format&fit=crop&q=80&w=1200`} 
+                      src={`${i === 0 ? 'https://images.unsplash.com/photo-1507692049790-de58290a4334' : i === 1 ? 'https://images.unsplash.com/photo-1523240795612-9a054b0db644' : i === 2 ? 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c' : 'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4'}?auto=format&fit=crop&q=80&w=1200`} 
                     alt={m.title} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"

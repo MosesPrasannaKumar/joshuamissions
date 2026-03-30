@@ -3,15 +3,16 @@ import { motion } from 'motion/react';
 
 export const GalleryPage: React.FC = () => {
   const images = [
-    'https://images.unsplash.com/photo-1515162305285-0293e4767cc2',
-    'https://images.unsplash.com/photo-1507692049790-de58290a4334',
-    'https://images.unsplash.com/photo-1477673132141-8467d3466a65',
-    'https://images.unsplash.com/photo-1541976844346-f18aeac57b06',
-    'https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa',
-    'https://images.unsplash.com/photo-1511632765486-a01980e01a18',
-    'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c',
-    'https://images.unsplash.com/photo-1504052434569-70ad5836ab65',
-    'https://images.unsplash.com/photo-1548625361-195fe5772df8'
+    '/gallery/gal-1.webp',
+    '/gallery/gal-2.webp',
+    '/gallery/gal-3.webp',
+    '/gallery/gal-4.webp',
+    '/gallery/gal-5.webp',
+    '/gallery/gal-6.webp',
+    '/gallery/gal-7.webp',
+    '/gallery/gal-8.webp',
+    '/gallery/gal-9.webp',
+    '/gallery/gal-10.webp'
   ];
 
   return (
@@ -26,10 +27,19 @@ export const GalleryPage: React.FC = () => {
           {images.map((img, i) => (
             <motion.div 
               key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               whileHover={{ scale: 1.02 }}
-              className="rounded-2xl overflow-hidden shadow-lg cursor-pointer"
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="break-inside-avoid rounded-2xl overflow-hidden shadow-lg cursor-pointer bg-accent-beige"
             >
-              <img src={`${img}?auto=format&fit=crop&q=80&w=800`} alt="Gallery" className="w-full h-auto" referrerPolicy="no-referrer" />
+              <img 
+                src={img} 
+                alt={`Gallery Image ${i + 1}`} 
+                className="w-full h-auto block hover:opacity-90 transition-opacity" 
+                referrerPolicy="no-referrer" 
+              />
             </motion.div>
           ))}
         </div>
