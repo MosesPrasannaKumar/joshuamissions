@@ -54,7 +54,7 @@ export default function App() {
     switch (currentPage) {
       case 'home': return <HomePage navigate={navigate} />;
       case 'about': return <AboutPage />;
-      case 'ministries': return <MinistriesPage />;
+      case 'ministries': return <MinistriesPage navigate={navigate} />;
       case 'events': return <EventsPage />;
       case 'sermons': return <SermonsPage />;
       case 'gallery': return <GalleryPage />;
@@ -109,8 +109,8 @@ export default function App() {
                   ? 'bg-primary text-warm-white hover:bg-secondary'
                   : 'bg-secondary text-primary hover:bg-warm-white'
               }`}
-            >
-              Support
+            >   
+              Support Us
             </button>
           </div>
 

@@ -47,10 +47,10 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             transition={{ duration: 0.8 }}
             className="flex flex-col items-center text-center"
           >
-            <span className="inline-block text-secondary font-bold uppercase tracking-[0.3em] text-sm mb-6">Welcome to Joshua Missions</span>
+            <span className="inline-block text-secondary font-bold uppercase tracking-[0.3em] text-sm mb-6">Joshua Missions</span>
             <h1 className="text-4xl sm:text-6xl md:text-8xl text-warm-white font-serif leading-tight mb-8 text-center w-full">
-              Sharing Faith. <br />
-              <span className="italic text-secondary">Serving Communities.</span>
+              Inheriting <br />
+              <span className="italic text-secondary">The Promises.</span>
             </h1>
             <p className="text-lg md:text-xl text-warm-white/80 max-w-2xl mx-auto mb-12 font-light leading-relaxed text-center">
               Joshua Missions Church is dedicated to prayer, spiritual growth, and community transformation through the love of Christ.
@@ -199,7 +199,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               <div className="space-y-8 text-left">
                 {[
                   { title: 'Charity & Aid', desc: 'Providing essential resources to families in need across the region.' },
-                  { title: 'Food Support', desc: 'Weekly community kitchen serving nutritious meals to the homeless.' },
+                  { title: 'Food Support', desc: 'Occasionally serving nutritious meals to the homeless.' },
                   { title: 'Prayer Support', desc: 'A 24/7 prayer line offering spiritual comfort and guidance.' },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-6">

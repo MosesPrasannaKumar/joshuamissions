@@ -1,7 +1,12 @@
 import React from 'react';
 import { MINISTRIES } from '../constants';
+import { Page } from '../types';
 
-export const MinistriesPage: React.FC = () => {
+interface MinistriesPageProps {
+  navigate: (page: Page) => void;
+}
+
+export const MinistriesPage: React.FC<MinistriesPageProps> = ({ navigate }) => {
   return (
     <div className="pt-32 pb-24">
       <div className="max-w-[1440px] mx-auto px-4">
@@ -32,7 +37,12 @@ export const MinistriesPage: React.FC = () => {
                 <p className="text-primary/70 text-lg leading-relaxed mb-8">
                   {m.description} Our {m.title.toLowerCase()} is dedicated to serving the community and building a strong foundation of faith through focused ministry and fellowship.
                 </p>
-                <button className="bg-primary text-warm-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-secondary transition-colors">Get Involved</button>
+                <button 
+                  onClick={() => navigate('contact')}
+                  className="bg-primary text-warm-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-secondary transition-colors"
+                >
+                  Get Involved
+                </button>
               </div>
             </div>
           ))}

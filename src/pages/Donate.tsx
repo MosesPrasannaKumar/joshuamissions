@@ -26,28 +26,33 @@ export const DonatePage: React.FC = () => {
               <div className="space-y-4 bg-accent-beige p-8 rounded-2xl">
                 <div>
                   <p className="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Account Name</p>
-                  <p className="text-primary font-bold">Joshua Missions Trust</p>
+                  <p className="text-primary font-bold">Joshua Missions</p>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Bank Name</p>
-                  <p className="text-primary font-bold">Faith International Bank</p>
+                  <p className="text-primary font-bold">Federal Bank</p>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">Account Number</p>
-                  <p className="text-primary font-bold">1234 5678 9012</p>
+                  <p className="text-primary font-bold">23090200001349</p>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1">IFSC Code</p>
-                  <p className="text-primary font-bold">FIBK0001234</p>
+                  <p className="text-primary font-bold">FDRL0002309</p>
                 </div>
               </div>
             </div>
             <div className="flex flex-col justify-center items-center text-center">
               <h3 className="font-serif text-2xl text-primary mb-6">UPI Payment</h3>
-              <div className="w-48 h-48 bg-primary/5 rounded-2xl flex items-center justify-center mb-6 border-2 border-dashed border-primary/10">
-                <span className="text-primary/20 text-xs font-bold uppercase tracking-widest">QR Code Placeholder</span>
+              <div className="w-48 h-48 bg-white rounded-2xl flex items-center justify-center mb-6 border border-primary/10 overflow-hidden">
+                <img 
+                  src="/jmc-qr.svg" 
+                  alt="Joshua Missions UPI QR Code" 
+                  className="w-full h-full object-contain p-2"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-              <p className="text-primary font-bold text-lg mb-2">joshuamissions@upi</p>
+              <p className="text-primary font-bold text-lg mb-2"> joshuamission9@fbl.</p>
               <p className="text-primary/40 text-xs uppercase tracking-widest">Scan to donate via any UPI app</p>
             </div>
           </div>
