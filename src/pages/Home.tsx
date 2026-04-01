@@ -15,11 +15,28 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
   useEffect(() => {
     const loadVideos = async () => {
-      const latest = await fetchLatestVideos();
-      if (latest.length > 0) {
-        setVideos(latest);
+      try {
+        const response = await fetch('/api/youtube/latest');
+        if (response.ok) {
+          const latest = await response.json();
+          if (latest.length > 0) {
+            setVideos(latest);
+          }
+        } else {
+          const latest = await fetchLatestVideos();
+          if (latest.length > 0) {
+            setVideos(latest);
+          }
+        }
+      } catch (error) {
+        console.error("Error loading videos:", error);
+        const latest = await fetchLatestVideos();
+        if (latest.length > 0) {
+          setVideos(latest);
+        }
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     loadVideos();
   }, []);
@@ -272,9 +289,9 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                       {sermon.type === 'video' ? <Play className="w-5 h-5 text-primary fill-primary" /> : <Music className="w-5 h-5 text-primary" />}
                     </div>
                   </div>
-                  {videos.length > 0 && (
-                    <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
-                      <Youtube className="w-3 h-3" /> Live
+                  {sermon.isLive && (
+                    <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 animate-pulse">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full"></div> LIVE
                     </div>
                   )}
                 </div>

@@ -9,31 +9,49 @@ interface SermonVideo {
   date: string;
   thumbnail: string;
   link: string;
+  isLive?: boolean;
 }
 
 export const SermonsPage: React.FC = () => {
   const [videos, setVideos] = useState<SermonVideo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadVideos = async () => {
-      try {
-        const fetchedVideos = await fetchLatestVideos();
-        const formattedVideos: SermonVideo[] = fetchedVideos.map(v => ({
-          id: v.id,
-          title: v.title,
-          date: v.date,
-          thumbnail: v.thumbnail,
-          link: `https://www.youtube.com/watch?v=${v.id}`
-        }));
-        setVideos(formattedVideos);
-      } catch (error) {
-        console.error("Error loading videos:", error);
-      } finally {
-        setLoading(false);
+  const loadVideos = async (force = false) => {
+    if (force) setRefreshing(true);
+    else setLoading(true);
+    
+    try {
+      // Use the refresh query param if forced
+      const url = force ? '/api/youtube/latest?refresh=true' : '/api/youtube/latest';
+      const response = await fetch(url);
+      let fetchedVideos: YouTubeVideo[] = [];
+      
+      if (response.ok) {
+        fetchedVideos = await response.json();
+      } else {
+        fetchedVideos = await fetchLatestVideos();
       }
-    };
+
+      const formattedVideos: SermonVideo[] = fetchedVideos.map(v => ({
+        id: v.id,
+        title: v.title,
+        date: v.date,
+        thumbnail: v.thumbnail,
+        link: `https://www.youtube.com/watch?v=${v.id}`,
+        isLive: v.isLive
+      }));
+      setVideos(formattedVideos);
+    } catch (error) {
+      console.error("Error loading videos:", error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
     loadVideos();
   }, []);
 
@@ -65,7 +83,16 @@ export const SermonsPage: React.FC = () => {
         <div className="text-center mb-16">
           <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block">Joshua Missions Church</span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif text-primary mb-4">Sermons</h1>
-          <p className="text-primary/60 max-w-2xl mx-auto">Watch and listen to the latest messages from Rev. S. Joshua Vasan</p>
+          <p className="text-primary/60 max-w-2xl mx-auto mb-8">Watch and listen to the latest messages from Rev. S. Joshua Vasan</p>
+          
+          <button 
+            onClick={() => loadVideos(true)}
+            disabled={refreshing}
+            className="inline-flex items-center gap-2 text-secondary font-bold uppercase tracking-widest text-[10px] hover:text-primary transition-colors disabled:opacity-50"
+          >
+            <Loader2 className={`w-3 h-3 ${refreshing ? 'animate-spin' : ''}`} />
+            {refreshing ? 'Refreshing...' : 'Refresh Latest Content'}
+          </button>
         </div>
 
         {/* Featured Sermon */}
@@ -89,6 +116,11 @@ export const SermonsPage: React.FC = () => {
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                       loading="lazy"
                     />
+                    {featuredSermon.isLive && (
+                      <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 animate-pulse">
+                        <div className="w-2 h-2 bg-white rounded-full"></div> LIVE
+                      </div>
+                    )}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="w-20 h-20 bg-secondary text-primary rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform">
                         <Play className="w-8 h-8 fill-primary" />
@@ -148,6 +180,11 @@ export const SermonsPage: React.FC = () => {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
+                  {sermon.isLive && (
+                    <div className="absolute top-3 left-3 bg-red-600 text-white px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest flex items-center gap-1.5 z-10">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full"></div> LIVE
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors flex items-center justify-center">
                     <div className="w-12 h-12 bg-warm-white rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
                       <Play className="w-5 h-5 text-primary fill-primary" />

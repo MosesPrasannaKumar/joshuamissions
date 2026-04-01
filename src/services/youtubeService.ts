@@ -5,6 +5,7 @@ export interface YouTubeVideo {
   date: string;
   speaker: string;
   type: 'video';
+  isLive?: boolean;
 }
 
 // Permanent fallback videos to ensure the UI is never empty
@@ -15,7 +16,8 @@ const STATIC_FALLBACK_VIDEOS: YouTubeVideo[] = [
     thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/hqdefault.jpg',
     date: 'March 9, 2025',
     speaker: 'Rev. S. Joshua Vasan',
-    type: 'video'
+    type: 'video',
+    isLive: false
   },
   {
     id: 'LeKskNVb9XU',
@@ -23,7 +25,8 @@ const STATIC_FALLBACK_VIDEOS: YouTubeVideo[] = [
     thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/hqdefault.jpg',
     date: 'March 5, 2025',
     speaker: 'Rev. S. Joshua Vasan',
-    type: 'video'
+    type: 'video',
+    isLive: false
   },
   {
     id: 'X7R1_vABiCy',
@@ -31,7 +34,8 @@ const STATIC_FALLBACK_VIDEOS: YouTubeVideo[] = [
     thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/hqdefault.jpg',
     date: 'March 2, 2025',
     speaker: 'Rev. S. Joshua Vasan',
-    type: 'video'
+    type: 'video',
+    isLive: false
   }
 ];
 
@@ -82,7 +86,8 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
             }),
             thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
             speaker: 'Rev. S. Joshua Vasan',
-            type: 'video'
+            type: 'video',
+            isLive: false
           });
         }
       }
@@ -126,7 +131,8 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
         }),
         thumbnail: `https://i.ytimg.com/vi/${ids[i]}/hqdefault.jpg`,
         speaker: 'Rev. S. Joshua Vasan',
-        type: 'video'
+        type: 'video',
+        isLive: false
       });
     }
     return videos;

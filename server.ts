@@ -10,19 +10,19 @@ async function startServer() {
 
   // Simple in-memory cache with background refresh support
   let videoCache: { data: any[], timestamp: number } | null = null;
-  const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+  const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes
   let isRefreshing = false;
 
-  async function refreshYouTubeCache(rssUrl: string, channelId: string, apiKey?: string) {
-    if (isRefreshing) return;
+  async function refreshYouTubeCache(rssUrl: string, channelId: string, apiKey?: string, force = false) {
+    if (isRefreshing && !force) return;
     isRefreshing = true;
     
     let videos = [];
     try {
       if (apiKey) {
         console.log('Fetching from YouTube Data API v3...');
-        // Fetch up to 15 videos to populate the Sermons page
-        const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=15&type=video`;
+        // Fetch up to 50 videos to populate the Sermons page
+        const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=50&type=video`;
         const apiResponse = await axios.get(apiUrl, { timeout: 10000 });
         videos = apiResponse.data.items.map((item: any) => ({
           id: item.id.videoId,
@@ -32,7 +32,8 @@ async function startServer() {
             month: 'long', day: 'numeric', year: 'numeric'
           }),
           speaker: 'Rev. S. Joshua Vasan',
-          type: 'video'
+          type: 'video',
+          isLive: item.snippet.liveBroadcastContent === 'live'
         }));
       } else {
         // Try Primary RSS
@@ -47,8 +48,8 @@ async function startServer() {
           });
           const result = await parseStringPromise(rssResponse.data);
           const entries = result?.feed?.entry || [];
-          // Increase slice to 15 for the Sermons page
-          videos = entries.slice(0, 15).map((entry: any) => {
+          // Increase slice to 50 for the Sermons page
+          videos = entries.slice(0, 50).map((entry: any) => {
             const videoId = entry['yt:videoId']?.[0] || 
                           (entry.id?.[0]?.includes('yt:video:') ? entry.id[0].replace('yt:video:', '') : '');
             return {
@@ -59,7 +60,8 @@ async function startServer() {
                 month: 'long', day: 'numeric', year: 'numeric'
               }),
               speaker: 'Rev. S. Joshua Vasan',
-              type: 'video'
+              type: 'video',
+              isLive: false // RSS doesn't reliably show live status
             };
           });
         } catch (e) {
@@ -69,13 +71,14 @@ async function startServer() {
             const proxyUrl1 = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
             const res = await axios.get(proxyUrl1, { timeout: 10000 });
             if (res.data?.items?.length > 0) {
-              videos = res.data.items.slice(0, 15).map((item: any) => ({
+              videos = res.data.items.slice(0, 50).map((item: any) => ({
                 id: item.link.split('v=')[1]?.split('&')[0] || '',
                 title: item.title,
                 thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${item.link.split('v=')[1]?.split('&')[0]}/hqdefault.jpg`,
                 date: new Date(item.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
                 speaker: 'Rev. S. Joshua Vasan',
-                type: 'video'
+                type: 'video',
+                isLive: false
               }));
             } else throw new Error('Proxy 1 empty');
           } catch (e2) {
@@ -86,7 +89,7 @@ async function startServer() {
               const res = await axios.get(proxyUrl2, { timeout: 10000 });
               const result = await parseStringPromise(res.data.contents);
               const entries = result?.feed?.entry || [];
-              videos = entries.slice(0, 15).map((entry: any) => {
+              videos = entries.slice(0, 50).map((entry: any) => {
                 const videoId = entry['yt:videoId']?.[0] || 
                               (entry.id?.[0]?.includes('yt:video:') ? entry.id[0].replace('yt:video:', '') : '');
                 return {
@@ -95,7 +98,8 @@ async function startServer() {
                   thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
                   date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
                   speaker: 'Rev. S. Joshua Vasan',
-                  type: 'video'
+                  type: 'video',
+                  isLive: false
                 };
               });
             } catch (e3) {
@@ -105,7 +109,7 @@ async function startServer() {
               const res = await axios.get(proxyUrl3, { timeout: 10000 });
               const result = await parseStringPromise(res.data);
               const entries = result?.feed?.entry || [];
-              videos = entries.slice(0, 15).map((entry: any) => {
+              videos = entries.slice(0, 50).map((entry: any) => {
                 const videoId = entry['yt:videoId']?.[0] || 
                               (entry.id?.[0]?.includes('yt:video:') ? entry.id[0].replace('yt:video:', '') : '');
                 return {
@@ -114,7 +118,8 @@ async function startServer() {
                   thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
                   date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
                   speaker: 'Rev. S. Joshua Vasan',
-                  type: 'video'
+                  type: 'video',
+                  isLive: false
                 };
               });
             }
@@ -239,9 +244,10 @@ async function startServer() {
     const channelId = 'UCX9b9buBiXlcYbAC6LtzjzQ';
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
     const apiKey = process.env.YOUTUBE_API_KEY;
+    const forceRefresh = req.query.refresh === 'true';
 
     // 1. If we have ANY cache, serve it immediately (Stale-While-Revalidate)
-    if (videoCache) {
+    if (videoCache && !forceRefresh) {
       res.json(videoCache.data);
       
       // 2. If cache is expired, refresh it in the background
@@ -251,8 +257,8 @@ async function startServer() {
       return;
     }
 
-    // 3. If NO cache exists (first load), we must wait for a fresh fetch
-    await refreshYouTubeCache(rssUrl, channelId, apiKey);
+    // 3. If NO cache exists (first load) or force refresh, we must wait for a fresh fetch
+    await refreshYouTubeCache(rssUrl, channelId, apiKey, forceRefresh);
     
     if (videoCache) {
       res.json(videoCache.data);
@@ -265,7 +271,8 @@ async function startServer() {
           thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/hqdefault.jpg',
           date: 'Recent',
           speaker: 'Rev. S. Joshua Vasan',
-          type: 'video'
+          type: 'video',
+          isLive: false
         },
         {
           id: 'LeKskNVb9XU',
@@ -273,7 +280,8 @@ async function startServer() {
           thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/hqdefault.jpg',
           date: 'Recent',
           speaker: 'Rev. S. Joshua Vasan',
-          type: 'video'
+          type: 'video',
+          isLive: false
         }
       ]);
     }
