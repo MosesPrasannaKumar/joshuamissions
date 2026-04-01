@@ -77,6 +77,7 @@ export const SermonsPage: React.FC = () => {
                       alt={featuredSermon.title} 
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="w-20 h-20 bg-secondary text-primary rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform">
@@ -136,6 +137,7 @@ export const SermonsPage: React.FC = () => {
                     alt={sermon.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors flex items-center justify-center">
                     <div className="w-12 h-12 bg-warm-white rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">

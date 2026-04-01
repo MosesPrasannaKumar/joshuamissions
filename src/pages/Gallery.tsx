@@ -3,16 +3,16 @@ import { motion } from 'motion/react';
 
 export const GalleryPage: React.FC = () => {
   const images = [
-    '/gallery/gal-1.webp',
-    '/gallery/gal-2.webp',
-    '/gallery/gal-3.webp',
-    '/gallery/gal-4.webp',
-    '/gallery/gal-5.webp',
-    '/gallery/gal-6.webp',
-    '/gallery/gal-7.webp',
-    '/gallery/gal-8.webp',
-    '/gallery/gal-9.webp',
-    '/gallery/gal-10.webp'
+    'gallery/gal-1.webp',
+    'gallery/gal-2.webp',
+    'gallery/gal-3.webp',
+    'gallery/gal-4.webp',
+    'gallery/gal-5.webp',
+    'gallery/gal-6.webp',
+    'gallery/gal-7.webp',
+    'gallery/gal-8.webp',
+    'gallery/gal-9.webp',
+    'gallery/gal-10.webp'
   ];
 
   return (
@@ -39,6 +39,7 @@ export const GalleryPage: React.FC = () => {
                 alt={`Gallery Image ${i + 1}`} 
                 className="w-full h-auto block hover:opacity-90 transition-opacity" 
                 referrerPolicy="no-referrer" 
+                loading="lazy"
               />
             </motion.div>
           ))}

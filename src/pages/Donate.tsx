@@ -46,10 +46,11 @@ export const DonatePage: React.FC = () => {
               <h3 className="font-serif text-2xl text-primary mb-6">UPI Payment</h3>
               <div className="w-48 h-48 bg-white rounded-2xl flex items-center justify-center mb-6 border border-primary/10 overflow-hidden">
                 <img 
-                  src="/jmc-qr.svg" 
+                  src="jmc-qr.svg" 
                   alt="Joshua Missions UPI QR Code" 
                   className="w-full h-full object-contain p-2"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </div>
               <p className="text-primary font-bold text-lg mb-2"> joshuamission9@fbl.</p>

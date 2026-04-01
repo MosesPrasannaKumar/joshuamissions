@@ -16,7 +16,7 @@ export const EventsPage: React.FC = () => {
             UPCOMING_EVENTS.map(event => (
               <div key={event.id} className="bg-white rounded-3xl overflow-hidden shadow-lg border border-primary/5 group">
                 <div className="aspect-video overflow-hidden">
-                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" loading="lazy" />
                 </div>
                 <div className="p-8">
                   <div className="flex items-center gap-4 mb-4">

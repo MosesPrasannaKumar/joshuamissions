@@ -21,7 +21,7 @@ export const AboutPage: React.FC = () => {
             </p>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden shadow-2xl aspect-video">
-            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=1200" alt="History" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=1200" alt="History" className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" />
           </div>
         </div>
 

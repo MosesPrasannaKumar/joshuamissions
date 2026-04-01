@@ -78,9 +78,10 @@ export default function App() {
             onClick={() => navigate('home')}
           >
             <img 
-              src="/logo.svg" 
+              src="logo.svg" 
               alt="Joshua Missions Logo" 
               className="h-14 md:h-20 w-auto transition-all duration-300"
+              loading="lazy"
             />
           </div>
 
@@ -143,9 +144,10 @@ export default function App() {
             <div className="flex justify-between items-center px-6 py-6 border-b border-primary/5">
               <div className="flex items-center gap-3">
                 <img 
-                  src="/logo.svg" 
+                  src="logo.svg" 
                   alt="Joshua Missions Logo" 
                   className="h-12 w-auto"
+                  loading="lazy"
                 />
                 <div className="flex flex-col">
                   <span className="text-lg font-serif font-bold tracking-tighter text-primary leading-none">JOSHUA <span className="text-secondary">MISSIONS</span></span>
@@ -222,9 +224,10 @@ export default function App() {
             <div className="col-span-1 md:col-span-1 flex flex-col items-center sm:items-start">
               <div className="flex items-center gap-4 mb-8">
                 <img 
-                  src="/logo.svg" 
+                  src="logo.svg" 
                   alt="Joshua Missions Logo" 
                   className="h-12 w-auto"
+                  loading="lazy"
                 />
                 <div className="flex flex-col">
                   <span className="text-xl font-serif font-bold tracking-tighter text-secondary leading-none">JOSHUA <span className="text-warm-white">MISSIONS</span></span>

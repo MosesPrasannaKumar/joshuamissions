@@ -36,6 +36,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
             alt="Worship" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
+            loading="lazy"
           />
           <div className="absolute inset-0 hero-gradient"></div>
         </div>
@@ -87,6 +88,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   alt="Community" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 bg-primary p-6 md:p-10 rounded-2xl shadow-2xl">
@@ -167,6 +169,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   alt={m.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-8 w-full">
@@ -221,6 +224,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                   alt="Impact" 
                   className="w-full h-full object-cover rounded-full"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </div>
               <div className="absolute top-1/2 -left-4 md:-left-10 bg-warm-white text-primary p-6 md:p-8 rounded-2xl shadow-2xl max-w-[200px] md:max-w-xs transform -translate-y-1/2">
@@ -262,6 +266,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
                     alt={sermon.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors flex items-center justify-center">
                     <div className="w-12 h-12 bg-warm-white rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform">
@@ -289,7 +294,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
         <div className="max-w-[1200px] mx-auto px-4">
           <div className="bg-primary rounded-3xl md:rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full opacity-20">
-              <img src="https://images.unsplash.com/photo-1548625361-195fe5772df8?auto=format&fit=crop&q=80&w=1200" alt="Pattern" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://images.unsplash.com/photo-1548625361-195fe5772df8?auto=format&fit=crop&q=80&w=1200" alt="Pattern" className="w-full h-full object-cover" referrerPolicy="no-referrer" loading="lazy" />
             </div>
             <div className="relative z-10">
               <h2 className="text-4xl md:text-6xl font-serif text-warm-white mb-8">Ready to Start Your Journey?</h2>

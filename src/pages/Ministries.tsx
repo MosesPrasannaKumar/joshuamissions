@@ -28,6 +28,7 @@ export const MinistriesPage: React.FC<MinistriesPageProps> = ({ navigate }) => {
                     alt={m.title} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                   />
                 </div>
               </div>
