@@ -81,6 +81,7 @@ export default function App() {
               src="logo.svg" 
               alt="Joshua Missions Logo" 
               className="h-14 md:h-20 w-auto transition-all duration-300"
+              referrerPolicy="no-referrer"
               loading="lazy"
             />
           </div>
@@ -147,6 +148,7 @@ export default function App() {
                   src="logo.svg" 
                   alt="Joshua Missions Logo" 
                   className="h-12 w-auto"
+                  referrerPolicy="no-referrer"
                   loading="lazy"
                 />
                 <div className="flex flex-col">
@@ -227,6 +229,7 @@ export default function App() {
                   src="logo.svg" 
                   alt="Joshua Missions Logo" 
                   className="h-12 w-auto"
+                  referrerPolicy="no-referrer"
                   loading="lazy"
                 />
                 <div className="flex flex-col">

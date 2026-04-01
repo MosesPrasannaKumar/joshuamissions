@@ -16,7 +16,7 @@ export const LATEST_SERMONS: Sermon[] = [
     speaker: 'Rev. S. Joshua Vasan',
     date: 'March 8, 2026',
     type: 'video',
-    thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/maxresdefault.jpg'
+    thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/hqdefault.jpg'
   },
   {
     id: 'LeKskNVb9XU',
@@ -24,7 +24,7 @@ export const LATEST_SERMONS: Sermon[] = [
     speaker: 'Rev. S. Joshua Vasan',
     date: 'March 1, 2026',
     type: 'video',
-    thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/maxresdefault.jpg'
+    thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/hqdefault.jpg'
   }
 ];
 

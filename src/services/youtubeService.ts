@@ -12,7 +12,7 @@ const STATIC_FALLBACK_VIDEOS: YouTubeVideo[] = [
   {
     id: 'vABiCy61iY8',
     title: 'Sunday Worship Service - The Power of Prayer',
-    thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/maxresdefault.jpg',
+    thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/hqdefault.jpg',
     date: 'March 9, 2025',
     speaker: 'Rev. S. Joshua Vasan',
     type: 'video'
@@ -20,7 +20,7 @@ const STATIC_FALLBACK_VIDEOS: YouTubeVideo[] = [
   {
     id: 'LeKskNVb9XU',
     title: 'Walking in Faith - Mid-week Meditation',
-    thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/maxresdefault.jpg',
+    thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/hqdefault.jpg',
     date: 'March 5, 2025',
     speaker: 'Rev. S. Joshua Vasan',
     type: 'video'
@@ -80,7 +80,7 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
             date: new Date(published).toLocaleDateString('en-US', {
               month: 'long', day: 'numeric', year: 'numeric'
             }),
-            thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+            thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
             speaker: 'Rev. S. Joshua Vasan',
             type: 'video'
           });
@@ -124,7 +124,7 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
         date: new Date(dates[i] || Date.now()).toLocaleDateString('en-US', {
           month: 'long', day: 'numeric', year: 'numeric'
         }),
-        thumbnail: `https://i.ytimg.com/vi/${ids[i]}/maxresdefault.jpg`,
+        thumbnail: `https://i.ytimg.com/vi/${ids[i]}/hqdefault.jpg`,
         speaker: 'Rev. S. Joshua Vasan',
         type: 'video'
       });

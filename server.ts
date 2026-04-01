@@ -54,7 +54,7 @@ async function startServer() {
             return {
               id: videoId,
               title: entry.title?.[0] || 'Sermon Video',
-              thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+              thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
               date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', {
                 month: 'long', day: 'numeric', year: 'numeric'
               }),
@@ -72,7 +72,7 @@ async function startServer() {
               videos = res.data.items.slice(0, 15).map((item: any) => ({
                 id: item.link.split('v=')[1]?.split('&')[0] || '',
                 title: item.title,
-                thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${item.link.split('v=')[1]?.split('&')[0]}/maxresdefault.jpg`,
+                thumbnail: item.thumbnail || `https://i.ytimg.com/vi/${item.link.split('v=')[1]?.split('&')[0]}/hqdefault.jpg`,
                 date: new Date(item.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
                 speaker: 'Rev. S. Joshua Vasan',
                 type: 'video'
@@ -92,7 +92,7 @@ async function startServer() {
                 return {
                   id: videoId,
                   title: entry.title?.[0] || 'Sermon Video',
-                  thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+                  thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
                   date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
                   speaker: 'Rev. S. Joshua Vasan',
                   type: 'video'
@@ -111,7 +111,7 @@ async function startServer() {
                 return {
                   id: videoId,
                   title: entry.title?.[0] || 'Sermon Video',
-                  thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+                  thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
                   date: new Date(entry.published?.[0] || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
                   speaker: 'Rev. S. Joshua Vasan',
                   type: 'video'
@@ -262,7 +262,7 @@ async function startServer() {
         {
           id: 'vABiCy61iY8',
           title: 'The Power of Prayer',
-          thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/maxresdefault.jpg',
+          thumbnail: 'https://i.ytimg.com/vi/vABiCy61iY8/hqdefault.jpg',
           date: 'Recent',
           speaker: 'Rev. S. Joshua Vasan',
           type: 'video'
@@ -270,7 +270,7 @@ async function startServer() {
         {
           id: 'LeKskNVb9XU',
           title: 'Walking in Faith',
-          thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/maxresdefault.jpg',
+          thumbnail: 'https://i.ytimg.com/vi/LeKskNVb9XU/hqdefault.jpg',
           date: 'Recent',
           speaker: 'Rev. S. Joshua Vasan',
           type: 'video'

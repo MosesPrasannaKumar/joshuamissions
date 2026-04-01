@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Play, Music, FileText, Youtube, ExternalLink, Loader2 } from 'lucide-react';
 import { fetchLatestVideos, YouTubeVideo } from '../services/youtubeService';
+import { LATEST_SERMONS } from '../constants';
 
 interface SermonVideo {
   id: string;
@@ -36,8 +37,18 @@ export const SermonsPage: React.FC = () => {
     loadVideos();
   }, []);
 
-  const featuredSermon = videos[0];
-  const latestSermons = videos.slice(1, 7);
+  const displayVideos: SermonVideo[] = videos.length > 0 
+    ? videos 
+    : LATEST_SERMONS.map(s => ({
+        id: s.id,
+        title: s.title,
+        date: s.date,
+        thumbnail: s.thumbnail,
+        link: `https://www.youtube.com/watch?v=${s.id}`
+      }));
+
+  const featuredSermon = displayVideos[0];
+  const latestSermons = displayVideos.slice(1, 7);
 
   if (loading) {
     return (
@@ -76,7 +87,6 @@ export const SermonsPage: React.FC = () => {
                       src={featuredSermon.thumbnail} 
                       alt={featuredSermon.title} 
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                      referrerPolicy="no-referrer"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -136,7 +146,6 @@ export const SermonsPage: React.FC = () => {
                     src={sermon.thumbnail} 
                     alt={sermon.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors flex items-center justify-center">
