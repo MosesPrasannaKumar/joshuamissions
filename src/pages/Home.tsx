@@ -16,7 +16,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
   useEffect(() => {
     const loadVideos = async () => {
       try {
-        const response = await fetch('/api/youtube/latest');
+        const timestamp = Date.now();
+        const response = await fetch(`/api/youtube/latest?t=${timestamp}`, { cache: 'no-store' });
         if (response.ok) {
           const latest = await response.json();
           if (latest.length > 0) {
@@ -140,9 +141,9 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
               { title: 'Sunday Worship', time: '5:00 AM, 7:00 AM, 9:00 AM', desc: 'Main service with worship and word.', icon: Church },
-              { title: 'Daily Prayer', time: 'Mon - Sat 5:00 AM', desc: 'Early Morning Prayer & Praise.', icon: HandHeart },
+              { title: 'Daily Prayer', time: 'Mon - Fri 5:00 AM', desc: 'Early Morning Prayer & Praise.', icon: HandHeart },
               { title: 'Daily Worship', time: 'Mon to Fri 7:00 PM', desc: 'Evening Praise & Worship.', icon: Music },
-              { title: 'Mizpah Fasting Prayer', time: 'Friday, 10:00 AM', desc: 'A day of seeking God with fasting.', icon: Heart },
+              { title: 'Mizpah Fasting Prayer', time: 'Friday, 10:30 AM', desc: 'A day of seeking God with fasting.', icon: Heart },
               { title: 'Promise Service', time: '1st of Every Month 5:00 AM', desc: 'Promise of God with Communion.', icon: Sparkles },
               { title: 'Youth Meeting', time: '2nd Sunday 5:30 PM', desc: 'Leading the Generations into God.', icon: Users },
             ].map((item, i) => (
