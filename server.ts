@@ -154,6 +154,10 @@ async function startServer() {
   app.get(['/api/youtube', '/api/youtube/rss-proxy'], async (req, res) => {
     // Add CORS headers for frontend access
     res.set('Access-Control-Allow-Origin', '*');
+    // Prevent caching of the API response
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
     
     const channelId = 'UCX9b9buBiXlcYbAC6LtzjzQ';
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
@@ -240,6 +244,10 @@ async function startServer() {
   app.get('/api/youtube/latest', async (req, res) => {
     // Add CORS headers
     res.set('Access-Control-Allow-Origin', '*');
+    // Prevent caching of the API response
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
     
     const channelId = 'UCX9b9buBiXlcYbAC6LtzjzQ';
     const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;

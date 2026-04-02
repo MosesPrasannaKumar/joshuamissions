@@ -141,7 +141,8 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
   try {
     // 1. Try the JSON API first (Server-side parsed, more reliable)
     try {
-      const jsonResponse = await fetch('/api/youtube/latest');
+      const timestamp = Date.now();
+      const jsonResponse = await fetch(`/api/youtube/latest?t=${timestamp}`, { cache: 'no-store' });
       if (jsonResponse.ok) {
         const data = await jsonResponse.json();
         if (data && data.length > 0) {
@@ -156,7 +157,7 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
 
     // 2. Try the primary RSS proxy
     try {
-      const response = await fetch('/api/youtube');
+      const response = await fetch('/api/youtube', { cache: 'no-store' });
       if (response.ok) {
         const xmlText = await response.text();
         const videos = parseXml(xmlText);
@@ -170,7 +171,7 @@ export async function fetchLatestVideos(): Promise<YouTubeVideo[]> {
     // 3. Try Client-side proxy (AllOrigins)
     try {
       const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
-      const response = await fetch(proxyUrl);
+      const response = await fetch(proxyUrl, { cache: 'no-store' });
       if (response.ok) {
         const data = await response.json();
         if (data.contents) {

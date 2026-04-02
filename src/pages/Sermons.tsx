@@ -23,9 +23,13 @@ export const SermonsPage: React.FC = () => {
     else setLoading(true);
     
     try {
-      // Use the refresh query param if forced
-      const url = force ? '/api/youtube/latest?refresh=true' : '/api/youtube/latest';
-      const response = await fetch(url);
+      // Use the refresh query param if forced, and always add a timestamp to bust cache
+      const timestamp = Date.now();
+      const url = force 
+        ? `/api/youtube/latest?refresh=true&t=${timestamp}` 
+        : `/api/youtube/latest?t=${timestamp}`;
+      
+      const response = await fetch(url, { cache: 'no-store' });
       let fetchedVideos: YouTubeVideo[] = [];
       
       if (response.ok) {
@@ -45,6 +49,21 @@ export const SermonsPage: React.FC = () => {
       setVideos(formattedVideos);
     } catch (error) {
       console.error("Error loading videos:", error);
+      // Fallback to client-side fetch if API fails
+      try {
+        const fallbackVideos = await fetchLatestVideos();
+        const formatted = fallbackVideos.map(v => ({
+          id: v.id,
+          title: v.title,
+          date: v.date,
+          thumbnail: v.thumbnail,
+          link: `https://www.youtube.com/watch?v=${v.id}`,
+          isLive: v.isLive
+        }));
+        setVideos(formatted);
+      } catch (e) {
+        console.error("Fallback fetch failed:", e);
+      }
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -66,7 +85,7 @@ export const SermonsPage: React.FC = () => {
       }));
 
   const featuredSermon = displayVideos[0];
-  const latestSermons = displayVideos.slice(1, 7);
+  const latestSermons = displayVideos.slice(1);
 
   if (loading) {
     return (
